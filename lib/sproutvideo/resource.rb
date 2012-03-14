@@ -17,20 +17,20 @@ module Sproutvideo
     end
 
     def self.upload(path, file_path, options={})
-      body = MultiJson.encode(options.dup)
+
       resp = nil
       begin
         file = File.open(file_path)
-
+        body = {:source_video => file}.merge(options.dup)
         resp = HTTPClient.new.post(
           "#{base_url}#{path}",
-          [{'source_video' => file}, body],
+          body,
           {'SproutVideo-Api-Key' => api_key})
       rescue
         file.close
       end
       file.close
-      
+
       Response.new(resp)
     end
 

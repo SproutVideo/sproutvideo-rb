@@ -22,7 +22,7 @@ describe Sproutvideo::Video do
 
 			@http_mock.should_receive(:post).with(
 				"#{Sproutvideo.base_url}/videos",
-				[{'source_video' => file}, MultiJson.encode({:title => 'test title'})],
+				{:source_video => file, :title => 'test title'},
 				{'SproutVideo-Api-Key' => @api_key}).and_return(@msg)
 
 

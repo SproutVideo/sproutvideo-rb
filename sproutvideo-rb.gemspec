@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["SproutVideo"]
-  s.date = %q{2012-03-13}
+  s.date = %q{2012-03-14}
   s.description = %q{SproutVideo API Client}
   s.email = %q{support@sproutvideo.com}
   s.extra_rdoc_files = [
@@ -24,15 +24,19 @@ Gem::Specification.new do |s|
     "README.rdoc",
     "Rakefile",
     "lib/sproutvideo.rb",
+    "lib/sproutvideo/playlist.rb",
     "lib/sproutvideo/resource.rb",
     "lib/sproutvideo/response.rb",
     "lib/sproutvideo/sproutvideo.rb",
+    "lib/sproutvideo/tag.rb",
     "lib/sproutvideo/version.rb",
     "lib/sproutvideo/video.rb",
     "spec/spec_helper.rb",
+    "spec/sproutvideo/playlist_spec.rb",
     "spec/sproutvideo/resource_spec.rb",
     "spec/sproutvideo/response_spec.rb",
     "spec/sproutvideo/sproutvideo_spec.rb",
+    "spec/sproutvideo/tag_spec.rb",
     "spec/sproutvideo/video_spec.rb",
     "spec/sproutvideo_spec.rb",
     "sproutvideo-rb.gemspec"
