@@ -1,0 +1,10 @@
+require 'multi_json'
+require 'httpclient'
+
+require 'sproutvideo/version.rb'
+require 'sproutvideo/sproutvideo.rb'
+require 'sproutvideo/response.rb'
+require 'sproutvideo/resource.rb'
+require 'sproutvideo/video.rb'
+require 'sproutvideo/tag.rb'
+require 'sproutvideo/playlist.rb'

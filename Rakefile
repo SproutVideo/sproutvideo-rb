@@ -1,7 +1,9 @@
 # encoding: utf-8
-
 require 'rubygems'
 require 'bundler'
+
+require 'lib/sproutvideo/version.rb'
+
 begin
   Bundler.setup(:default, :development)
 rescue Bundler::BundlerError => e
@@ -15,13 +17,14 @@ require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "sproutvideo-rb"
-  gem.homepage = "http://github.com/podman/sproutvideo-rb"
+  gem.homepage = "http://github.com/sproutvideo/sproutvideo-rb"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
-  gem.email = "podman@gmail.com"
-  gem.authors = ["Adam Podolnick"]
+  gem.summary = %Q{SproutVideo API Client}
+  gem.description = %Q{SproutVideo API Client}
+  gem.email = "support@sproutvideo.com"
+  gem.authors = ["SproutVideo"]
   # dependencies defined in Gemfile
+  gem.version = Sproutvideo::VERSION
 end
 Jeweler::RubygemsDotOrgTasks.new
 
