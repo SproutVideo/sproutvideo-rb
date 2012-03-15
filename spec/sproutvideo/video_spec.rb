@@ -61,6 +61,14 @@ describe Sproutvideo::Video do
 				{'SproutVideo-Api-Key' => @api_key}).and_return(@msg)
 			Sproutvideo::Video.list(:page => 2, :per_page => 5)
 		end
+
+		it "should request videos for a tag if tag_id is passed in" do
+			@http_mock.should_receive(:get).with(
+				@url,
+				{:page => 1, :per_page => 25, :tag_id => 'asdf'},
+				{'SproutVideo-Api-Key' => @api_key}).and_return(@msg)
+			Sproutvideo::Video.list(:tag_id => 'asdf')
+		end
 	end
 
 	describe "#details" do
