@@ -4,13 +4,13 @@
 The first thing you'll need to interact with the SproutVideo API is your API key. You can use your API key in one of two ways. The first and easiest is to set it and forget it on the Sproutvideo module like so:
 
 ```ruby
-SproutVideo.api_key #'abcd1234'
+SproutVideo.api_key = 'abcd1234'
 ```
 
 Alternatively, you can use an environment variable:
 
 ```ruby
-ENV['SPROUTVIDEO_API_KEY'] #'abcd1234'
+ENV['SPROUTVIDEO_API_KEY']  = 'abcd1234'
 ```
 
 # Videos
@@ -42,11 +42,11 @@ Sproutvideo::Video.create('/path/to/video.mp4')
 
 You can set the title as well as many other parameters by passing them as a hash
 
- ```ruby
- Sproutvideo::Video.create('/path/to/video.mp4', {
-   :title => 'My Awesome Video',
-   :description => 'This video is great',
-   :privacy => 2})
+```ruby
+Sproutvideo::Video.create('/path/to/video.mp4', {
+  :title => 'My Awesome Video',
+  :description => 'This video is great',
+  :privacy => 2})
 ```
 
 You can also apply any number of tags to the new upload by passing their ids along:
@@ -149,6 +149,7 @@ Sproutvideo::Playlist.create(
 ```ruby
 Sproutvideo::Tag.update('abc123',
   :title => 'Update Playlist Title')
+```
 
 ## videos
 To add a video to a playlist, make sure to include all of the videos currently associated with that playlist. For instance if the playlist already has videos with the ids "abc" and "123" and you want to add a video with the id "def" do pass "abc", "123" and "def" to the update method.
