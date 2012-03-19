@@ -18,7 +18,7 @@ describe Sproutvideo::Video do
 
 			file = File.open('upload_test')
 
-			File.stub!(:open).with('upload_test').and_return(file)
+			File.stub!(:open).with('upload_test').and_yield(file)
 
 			@http_mock.should_receive(:post).with(
 				"#{Sproutvideo.base_url}/videos",

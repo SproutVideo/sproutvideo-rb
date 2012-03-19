@@ -17,20 +17,17 @@ module Sproutvideo
     end
 
     def self.upload(path, file_path, options={})
-
       resp = nil
-      begin
-        file = File.open(file_path)
+      File.open(file_path) do |file|
         body = {:source_video => file}.merge(options.dup)
-        resp = HTTPClient.new.post(
+        client = HTTPClient.new
+        client.send_timeout = 18000
+        resp = client.post(
           "#{base_url}#{path}",
           body,
           {'SproutVideo-Api-Key' => api_key})
-      rescue
-        file.close
       end
-      file.close
-
+      
       Response.new(resp)
     end
 
