@@ -127,8 +127,9 @@ Sproutvideo::Tag.delete('abc123')
 
 # Playlists
 The following methods are available: `list`, `create`, `details`, `update`, `delete`.
-##list
+## list
 By default the playlist listing is paginated with 25 playlists per page and sorted by created at date in ascending order. You can pass two parameters to control the paging: page and per_page. 
+
 ```ruby
 Sproutvideo::Playlist.list
 Sproutvideo::Playlist.list(:per_page => 10)
