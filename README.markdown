@@ -1,22 +1,22 @@
-= SproutVideo
+#SproutVideo
 
-== Getting Started
+# Getting Started
 The first thing you'll need to interact with the SproutVideo API is your API key. You can use your API key in one of two ways. The first and easiest is to set it and forget it on the Sproutvideo module like so:
 
 ```ruby
-SproutVideo.api_key = 'abcd1234'
+SproutVideo.api_key #'abcd1234'
 ```
 
 Alternatively, you can use an environment variable:
 
 ```ruby
-ENV['SPROUTVIDEO_API_KEY'] = 'abcd1234'
+ENV['SPROUTVIDEO_API_KEY'] #'abcd1234'
 ```
 
-== Videos
+# Videos
 The following methods are available: `list`, `create`, `details`, `update`, `delete`.
 
-=== list
+##list
 By default the videos listing is paginated with 25 videos per page and sorted by upload date in ascending order. You can pass two parameters to control the paging: page and per_page. You can also pass in the id of a tag to just return the videos tagged with that tag.
 
 ```ruby
@@ -26,14 +26,14 @@ Sproutvideo::Video.list(:per_page => 10, :page => 2)
 Sproutvideo::Video.list(:tag_id => 'abc')
 ```
 
-=== details
+##details
 The string passed to details is the ID of a SproutVideo video.
 
 ```ruby
 Sproutvideo::Video.details('abc123')
 ```
 
-=== create
+##create
 The most basic upload you can perform is to just pass the path to the video file to the method. The title of the video will default to the name of the file.
 
 ```ruby
@@ -63,14 +63,14 @@ Sproutvideo::Video.create('/path/to/video.mp4',{
   :notification_url => 'http://example.com/webhook_url'})
 ```
 
-=== update
+##update
  The first parameter is the id of the video you wish to edit. The second parameter is a hash of attributes to update on the video.
 
 ```ruby
 Sproutvideo::Video.update('abc123', {:title => 'Updated Title'})
 ```
 
-==== Tags
+## Tags
 To add a tag to a video, make sure to include all of the tags currently associated with the video. For instance if the video already has tags with the ids "abc" and "123" and you want to add a tag with the id "def" do pass "abc", "123" and "def" to the update method.
 
 ```ruby
@@ -91,16 +91,16 @@ You can remove all of the tags from a video by just passing an empty array as th
 Sproutvideo::Video.update('abc123', {:tags => []})
 ```
 
-=== delete
+##delete
 Pass in the id of the video you wish to delete.
 
 ```ruby
 Sproutvideo::Video.delete('abc123')
 ```
-== Tags
+# Tags
 The following methods are available: `list`, `create`, `details`, `update`, `delete`.
 
-=== list
+##list
 By default the tag listing is paginated with 25 tags per page and sorted by created at date in ascending order. You can pass two parameters to control the paging: page and per_page. 
 
 ```ruby
@@ -109,25 +109,25 @@ Sproutvideo::Tag.list(:per_page => 10)
 Sproutvideo::Tag.list(:per_page => 10, :page => 2)
 ```
 
-=== create
+##create
     
 ```ruby
 Sproutvideo::Tag.create(:name => 'new tag')
 ```
 
-=== update
+##update
 ```ruby
 Sproutvideo::Tag.update('abc123', :name => 'updated tag name')
 ```
 
-=== delete
+##delete
 ```ruby
 Sproutvideo::Tag.delete('abc123')
 ```
 
-== Playlists
+# Playlists
 The following methods are available: `list`, `create`, `details`, `update`, `delete`.
-=== list
+##list
 By default the playlist listing is paginated with 25 playlists per page and sorted by created at date in ascending order. You can pass two parameters to control the paging: page and per_page. 
 ```ruby
 Sproutvideo::Playlist.list
@@ -135,7 +135,7 @@ Sproutvideo::Playlist.list(:per_page => 10)
 Sproutvideo::Playlist.list(:per_page => 10, :page => 2)
 ```
 
-=== create
+##create
 You can add videos to a playlist when creating it by passing in the videos you'd like to add in the videos parameter in the order you'd like them to appear.
 
 ```ruby
@@ -144,13 +144,13 @@ Sproutvideo::Playlist.create(
   :privacy => 2,
   :videos => ['abc123','def456','ghi789'])
 ```
-=== update
+##update
 
 ```ruby
 Sproutvideo::Tag.update('abc123',
   :title => 'Update Playlist Title')
 
-==== videos
+## videos
 To add a video to a playlist, make sure to include all of the videos currently associated with that playlist. For instance if the playlist already has videos with the ids "abc" and "123" and you want to add a video with the id "def" do pass "abc", "123" and "def" to the update method.
 
 ```ruby
@@ -171,13 +171,13 @@ You can remove all of the videos from a playlist by just passing an empty array 
 Sproutvideo::Playlist.update('abc123', {:videos => []})
 ```
 
-=== delete
+##delete
 
 ```ruby
 Sproutvideo::Playlist.delete('abc123')
 ```
 
-== Contributing to sproutvideo-rb
+# Contributing to sproutvideo-rb
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
@@ -187,7 +187,7 @@ Sproutvideo::Playlist.delete('abc123')
 * Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
 * Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
 
-== Copyright
+# Copyright
 
 Copyright (c) 2012 SproutVideo. See LICENSE.txt for
 further details.
