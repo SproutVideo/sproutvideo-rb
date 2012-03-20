@@ -1,6 +1,12 @@
 #SproutVideo
+Use this gem to interact with the [SproutVideo API](http://sproutvideo.com/docs/api.html)
 
 # Getting Started
+
+First, you'll need to install the gem
+
+    gem install sproutvideo-rb
+
 The first thing you'll need to interact with the SproutVideo API is your API key. You can use your API key in one of two ways. The first and easiest is to set it and forget it on the Sproutvideo module like so:
 
 ```ruby
@@ -10,7 +16,7 @@ SproutVideo.api_key = 'abcd1234'
 Alternatively, you can use an environment variable:
 
 ```ruby
-ENV['SPROUTVIDEO_API_KEY']  = 'abcd1234'
+ENV['SPROUTVIDEO_API_KEY'] = 'abcd1234'
 ```
 
 # Videos
@@ -42,11 +48,11 @@ Sproutvideo::Video.create('/path/to/video.mp4')
 
 You can set the title as well as many other parameters by passing them as a hash
 
-```ruby
-Sproutvideo::Video.create('/path/to/video.mp4', {
-  :title => 'My Awesome Video',
-  :description => 'This video is great',
-  :privacy => 2})
+ ```ruby
+ Sproutvideo::Video.create('/path/to/video.mp4', {
+   :title => 'My Awesome Video',
+   :description => 'This video is great',
+   :privacy => 2})
 ```
 
 You can also apply any number of tags to the new upload by passing their ids along:
@@ -127,9 +133,8 @@ Sproutvideo::Tag.delete('abc123')
 
 # Playlists
 The following methods are available: `list`, `create`, `details`, `update`, `delete`.
-## list
+##list
 By default the playlist listing is paginated with 25 playlists per page and sorted by created at date in ascending order. You can pass two parameters to control the paging: page and per_page. 
-
 ```ruby
 Sproutvideo::Playlist.list
 Sproutvideo::Playlist.list(:per_page => 10)
@@ -150,7 +155,6 @@ Sproutvideo::Playlist.create(
 ```ruby
 Sproutvideo::Tag.update('abc123',
   :title => 'Update Playlist Title')
-```
 
 ## videos
 To add a video to a playlist, make sure to include all of the videos currently associated with that playlist. For instance if the playlist already has videos with the ids "abc" and "123" and you want to add a video with the id "def" do pass "abc", "123" and "def" to the update method.
