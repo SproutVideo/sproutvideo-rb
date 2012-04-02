@@ -48,11 +48,11 @@ Sproutvideo::Video.create('/path/to/video.mp4')
 
 You can set the title as well as many other parameters by passing them as a hash
 
- ```ruby
- Sproutvideo::Video.create('/path/to/video.mp4', {
-   :title => 'My Awesome Video',
-   :description => 'This video is great',
-   :privacy => 2})
+```ruby
+Sproutvideo::Video.create('/path/to/video.mp4', {
+  :title => 'My Awesome Video',
+  :description => 'This video is great',
+  :privacy => 2})
 ```
 
 You can also apply any number of tags to the new upload by passing their ids along:
@@ -155,7 +155,7 @@ Sproutvideo::Playlist.create(
 ```ruby
 Sproutvideo::Tag.update('abc123',
   :title => 'Update Playlist Title')
-
+```
 ## videos
 To add a video to a playlist, make sure to include all of the videos currently associated with that playlist. For instance if the playlist already has videos with the ids "abc" and "123" and you want to add a video with the id "def" do pass "abc", "123" and "def" to the update method.
 
