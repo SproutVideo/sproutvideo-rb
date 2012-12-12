@@ -9,10 +9,14 @@ module Sproutvideo
 
     def self.post(path, options={})
       body = MultiJson.encode(options.dup)
-      resp = HTTPClient.new.post(
-        "#{base_url}#{path}",
-        body,
-        {'SproutVideo-Api-Key' => api_key})
+      begin
+        resp = RestClient.post(
+          "#{base_url}#{path}",
+          body,
+          {'SproutVideo-Api-Key' => api_key})
+      rescue => e
+        resp = e.response
+      end
       Response.new(resp)
     end
 
@@ -20,40 +24,51 @@ module Sproutvideo
       resp = nil
       File.open(file_path) do |file|
         body = {:source_video => file}.merge(options.dup)
-        client = HTTPClient.new
-        client.send_timeout = 18000
-        resp = client.post(
-          "#{base_url}#{path}",
-          body,
-          {'SproutVideo-Api-Key' => api_key})
+        begin
+          resp = RestClient.post(
+            "#{base_url}#{path}",
+            body,
+            {'SproutVideo-Api-Key' => api_key, :timeout => 18000})
+        rescue => e
+          resp = e.response
+        end
       end
       
       Response.new(resp)
     end
 
     def self.get(path, options={})
-      options = options.dup
-      resp = HTTPClient.new.get(
-        "#{base_url}#{path}",
-        options,
-        {'SproutVideo-Api-Key' => api_key})
+      begin
+        resp = RestClient.get(
+          "#{base_url}#{path}",
+          {'SproutVideo-Api-Key' => api_key, :params => options.dup})
+      rescue => e
+        resp = e.response
+      end
       Response.new(resp)
     end
 
     def self.put(path, options={})
       body = MultiJson.encode(options.dup)
-      resp = HTTPClient.new.put(
-        "#{base_url}#{path}",
-        body,
-        {'SproutVideo-Api-Key' => api_key})
+      begin
+        resp = RestClient.put(
+          "#{base_url}#{path}",
+          body,
+          {'SproutVideo-Api-Key' => api_key})
+      rescue => e
+        resp = e.response
+      end
       Response.new(resp)
     end
 
     def self.delete(path, options={})
-      resp = HTTPClient.new.delete(
-        "#{base_url}#{path}",
-        {},
-        {'SproutVideo-Api-Key' => api_key})
+      begin
+        resp = RestClient.delete(
+          "#{base_url}#{path}",
+          {'SproutVideo-Api-Key' => api_key})
+      rescue => e
+        resp = e.response
+      end
       Response.new(resp)
     end
   end

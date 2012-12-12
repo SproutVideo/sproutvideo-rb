@@ -4,9 +4,7 @@ describe Sproutvideo::Video do
 		@api_key = 'abc123'
 		Sproutvideo.api_key = @api_key
 		Sproutvideo.base_url = 'https://api.sproutvideo.com/v1'
-		@http_mock = mock(:send_timeout= => 18000)
-		HTTPClient.stub!(:new).and_return(@http_mock)
-		@msg =  mock(:body => "{}", :status => 200)
+		@msg =  mock(:to_s => "{}", :code => 200)
 	end
 
 	describe "#create" do
@@ -20,10 +18,10 @@ describe Sproutvideo::Video do
 
 			File.stub!(:open).with('upload_test').and_yield(file)
 
-			@http_mock.should_receive(:post).with(
+			RestClient.should_receive(:post).with(
 				"#{Sproutvideo.base_url}/videos",
 				{:source_video => file, :title => 'test title'},
-				{'SproutVideo-Api-Key' => @api_key}).and_return(@msg)
+				{'SproutVideo-Api-Key' => @api_key, :timeout => 18000}).and_return(@msg)
 
 
 			Sproutvideo::Video.create('upload_test', {:title => 'test title'}).class.should == Sproutvideo::Response
@@ -39,34 +37,30 @@ describe Sproutvideo::Video do
 
 		it "should GET the correct url and return a response" do
 			
-			@http_mock.should_receive(:get).with(
+			RestClient.should_receive(:get).with(
 				@url,
-				{:page => 1, :per_page => 25},
-				{'SproutVideo-Api-Key' => @api_key}).and_return(@msg)
+				{'SproutVideo-Api-Key' => @api_key, :params => {:page => 1, :per_page => 25}}).and_return(@msg)
 			Sproutvideo::Video.list.class.should == Sproutvideo::Response
 		end
 
 		it "should merge params" do
-			@http_mock.should_receive(:get).with(
+			RestClient.should_receive(:get).with(
 				@url,
-				{:page => 1, :per_page => 25, :foo => 'bar'},
-				{'SproutVideo-Api-Key' => @api_key}).and_return(@msg)
+				{'SproutVideo-Api-Key' => @api_key, :params => {:page => 1, :per_page => 25, :foo => 'bar'}}).and_return(@msg)
 			Sproutvideo::Video.list(:foo => 'bar')
 		end
 
 		it "should use pagination params" do
-			@http_mock.should_receive(:get).with(
+			RestClient.should_receive(:get).with(
 				@url,
-				{:page => 2, :per_page => 5},
-				{'SproutVideo-Api-Key' => @api_key}).and_return(@msg)
+				{'SproutVideo-Api-Key' => @api_key, :params => {:page => 2, :per_page => 5}}).and_return(@msg)
 			Sproutvideo::Video.list(:page => 2, :per_page => 5)
 		end
 
 		it "should request videos for a tag if tag_id is passed in" do
-			@http_mock.should_receive(:get).with(
+			RestClient.should_receive(:get).with(
 				@url,
-				{:page => 1, :per_page => 25, :tag_id => 'asdf'},
-				{'SproutVideo-Api-Key' => @api_key}).and_return(@msg)
+				{'SproutVideo-Api-Key' => @api_key, :params => {:page => 1, :per_page => 25, :tag_id => 'asdf'}}).and_return(@msg)
 			Sproutvideo::Video.list(:tag_id => 'asdf')
 		end
 	end
@@ -78,10 +72,9 @@ describe Sproutvideo::Video do
 		end
 
 		it "should get the correct url and return a response" do
-			@http_mock.should_receive(:get).with(
+			RestClient.should_receive(:get).with(
 				@url,
-				{},
-				{'SproutVideo-Api-Key' => @api_key}).and_return(@msg)
+				{'SproutVideo-Api-Key' => @api_key, :params => {}}).and_return(@msg)
 			Sproutvideo::Video.details(@video_id).class.should == Sproutvideo::Response
 		end
 	end
@@ -95,7 +88,7 @@ describe Sproutvideo::Video do
 		it "should PUT the correct url and return a response" do
 			data = {:title => 'new title'}
 
-			@http_mock.should_receive(:put).with(
+			RestClient.should_receive(:put).with(
 				@url,
 				MultiJson.encode(data),
 				{'SproutVideo-Api-Key' => @api_key}).and_return(@msg)
@@ -111,9 +104,8 @@ describe Sproutvideo::Video do
 		end
 
 		it "should DELETE the correct url and return a response" do
-			@http_mock.should_receive(:delete).with(
+			RestClient.should_receive(:delete).with(
 				@url,
-				{},
 				{'SproutVideo-Api-Key' => @api_key}).and_return(@msg)
 			Sproutvideo::Video.destroy(@video_id).class.should == Sproutvideo::Response
 		end

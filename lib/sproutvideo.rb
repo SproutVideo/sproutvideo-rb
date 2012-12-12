@@ -1,5 +1,5 @@
 require 'multi_json'
-require 'httpclient'
+require 'rest_client'
 
 require 'sproutvideo/version.rb'
 require 'sproutvideo/sproutvideo.rb'

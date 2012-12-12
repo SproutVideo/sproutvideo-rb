@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-gem "httpclient"
+gem "rest-client"
 gem "multi_json"
 
 group :development do

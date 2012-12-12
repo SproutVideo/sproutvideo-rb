@@ -3,8 +3,8 @@ module Sproutvideo
     attr_accessor :status, :body, :raw_body
     
     def initialize(msg)
-      self.status = msg.status
-      self.raw_body = msg.body
+      self.status = msg.code
+      self.raw_body = msg.to_s
       self.body = MultiJson.decode(self.raw_body, :symbolize_keys => true)
     end 
 
