@@ -274,7 +274,64 @@ Pass in the id of the access grant you wish to delete.
 ```ruby
 Sproutvideo::AccessGrant.delete('asdf1234')
 ```
+#Analytics
+The following methods are available through the API client for analytics:
 
+* play_counts
+* domains
+* geo
+* video_types
+* playback types
+* device_types
+
+Check the API documentation for more information about the data returned by these calls.
+
+Each method can be called on it's own for overall account data for all time like this:
+```ruby
+Sproutvideo::Analytics.play_counts
+Sproutvideo::Analytics.domains
+SproutVideo::Analytics.geo
+Sproutvideo::Analytics.video_types
+Sproutvideo::Analytics.playback_types
+Sproutvideo::Analytics.device_types
+```
+Each method can also take an options hash containing a :video_id for retrieving overall data for a specific video:
+```ruby
+Sproutvideo::Analytics.play_counts(:video_id => 'abc123')
+Sproutvideo::Analytics.domains(:video_id => 'abc123')
+SproutVideo::Analytics.geo(:video_id => 'abc123')
+Sproutvideo::Analytics.video_types(:video_id => 'abc123')
+Sproutvideo::Analytics.playback_types(:video_id => 'abc123')
+Sproutvideo::Analytics.device_types(:video_id => 'abc123')
+```
+Each method can also take an optional :start_date and :end_date to specify a date range for the returned data:
+```ruby
+Sproutvideo::Analytics.play_counts(:start_date => '2013-01-01')
+Sproutvideo::Analytics.device_types(:video_id => 'abc123', :end_date => '2012-12-31')
+```
+
+Lastly, the geo method can take an optional :country to retrieve playback data by city within that country
+```ruby
+Sproutvideo::Analytics.geo(:video_id => 'abc123', :country => 'US')
+```
+
+#Engagement
+You can grab the total number of seconds of your videos that have been watched like this:
+```ruby
+Sproutvideo::Analytics.engagement
+```
+
+You can grab engagement for a specific video like so:
+```ruby
+Sproutvideo::Analytics.engagement(:video_id => 'abc123')
+```
+
+Lastly, you can grab every single playback session for a video like this:
+```ruby
+Sproutvideo::Analytics.engagement_sessions('abc123')
+Sproutvideo::Analytics.engagement_sessions('abc123', :page => 3)
+Sproutvideo::Analytics.engagement_sessions('abc123', :page => 3, :per_page => 40)
+```
 # Contributing to sproutvideo-rb
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
