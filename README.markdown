@@ -103,6 +103,16 @@ Pass in the id of the video you wish to delete.
 ```ruby
 Sproutvideo::Video.delete('abc123')
 ```
+
+##Signed Embed Codes
+You can use this convenince method to sign an embed code
+```ruby
+Sproutvideo::Video.signed_embed_code('abc123') #sign a base embed code with no other options
+Sproutvideo::Video.signed_embed_code('abc123', {'type' => 'hd'}) #set parameters for the embed code such as changing the default video type to HD
+Sproutvideo::Video.signed_embed_code('abc123', {}, 1368127991) #set a specific expiration time for the signed embed code. (By default the expiration time is set to 5 minutes from the time the signed embed code was generated).
+Sproutvideo::Video.signed_embed_code('abc123', {}, nil, 'https') #Use https instead of http
+```
+
 # Tags
 The following methods are available: `list`, `create`, `details`, `update`, `delete`.
 
@@ -346,4 +356,3 @@ Sproutvideo::Analytics.engagement_sessions('abc123', :page => 3, :per_page => 40
 
 Copyright (c) 2012 SproutVideo. See LICENSE.txt for
 further details.
-
