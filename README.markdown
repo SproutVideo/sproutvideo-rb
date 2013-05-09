@@ -105,12 +105,31 @@ Sproutvideo::Video.delete('abc123')
 ```
 
 ##Signed Embed Codes
-You can use this convenince method to sign an embed code
+You can use this convenience method to sign an embed code. It will return the embed code URL which can be used to build an iframe embed code.
+`Sproutvideo::Video.signed_embed_code(video_id, security_token, query_parameters, expiration_time, protocol)`
+
+###Parameters
+video_id - _String_ (_Required_)
+: The id of the video for which you're generating the signed embed code
+
+security_token - _String_ (_Required_)
+: The security token of the video for which you're generatingn the signed embed code
+
+query_parameteres - _Hash_ (_Optional_)
+: A hash of query parameters to be passed to the embed code. Example: `{'type' => 'hd', 'autoplay' => true}`
+
+expiration_time - _Integer_ (_Optional_)
+: The number of seconds from the Epoc that this signed embed code should expire. This defaults to 5 minutes from the time the signed embed code was generated.
+
+protocol - _String_ (_Optional_)
+: `http` or `https`. Defaults to `http`
+
+###Examples
 ```ruby
-Sproutvideo::Video.signed_embed_code('abc123') #sign a base embed code with no other options
-Sproutvideo::Video.signed_embed_code('abc123', {'type' => 'hd'}) #set parameters for the embed code such as changing the default video type to HD
-Sproutvideo::Video.signed_embed_code('abc123', {}, 1368127991) #set a specific expiration time for the signed embed code. (By default the expiration time is set to 5 minutes from the time the signed embed code was generated).
-Sproutvideo::Video.signed_embed_code('abc123', {}, nil, 'https') #Use https instead of http
+Sproutvideo::Video.signed_embed_code('abc123','def456') #sign a base embed code with no other options
+Sproutvideo::Video.signed_embed_code('abc123','def456', {'type' => 'hd'}) #set parameters for the embed code such as changing the default video type to HD
+Sproutvideo::Video.signed_embed_code('abc123','def456', {}, 1368127991) #set a specific expiration time for the signed embed code. (By default the expiration time is set to 5 minutes from the time the signed embed code was generated).
+Sproutvideo::Video.signed_embed_code('abc123','def456', {}, nil, 'https') #Use https instead of http
 ```
 
 # Tags

@@ -114,8 +114,7 @@ describe Sproutvideo::Video do
 	describe "#signed_embed_code" do
 		before(:each) do
 			@video_id = 1
-			@url = "#{Sproutvideo.base_url}/videos/#{@video_id}"
-			@msg = mock(:code => 200, :to_s => '{"security_token":"abc123"}')
+			@security_token = 'abc123'
 			@digest = OpenSSL::Digest::Digest.new('sha1')
 			OpenSSL::Digest::Digest.stub!(:new).and_return(@digest)
 			time = Time.now
@@ -123,35 +122,27 @@ describe Sproutvideo::Video do
 			@expires_time = time.to_i+300
 			string_to_sign = "GET\nvideos.sproutvideo.com\n/embed/1/abc123\n&expires=#{@expires_time}"
 			@signature = CGI::escape([OpenSSL::HMAC.digest(@digest, @api_key, string_to_sign)].pack("m").strip)
-			RestClient.stub!(:get).and_return(@msg)
-		end
-
-		it "should get the video" do
-			RestClient.should_receive(:get).with(
-				@url,
-				{'SproutVideo-Api-Key' => @api_key, :params => {}}).and_return(@msg)
-			Sproutvideo::Video.signed_embed_code(@video_id)
 		end
 		
 		it "should sign the embed code" do
-			Sproutvideo::Video.signed_embed_code(@video_id).should == "http://videos.sproutvideo.com/embed/1/abc123?signature=#{@signature}&expires=#{@expires_time}"
+			Sproutvideo::Video.signed_embed_code(@video_id, @security_token).should == "http://videos.sproutvideo.com/embed/1/abc123?signature=#{@signature}&expires=#{@expires_time}"
 		end
 
 		it "should set the expires time if passed in" do
 			expires_time = 1368127991
 			string_to_sign = "GET\nvideos.sproutvideo.com\n/embed/1/abc123\n&expires=#{expires_time}"
 			signature = CGI::escape([OpenSSL::HMAC.digest(@digest, @api_key, string_to_sign)].pack("m").strip)
-			Sproutvideo::Video.signed_embed_code(@video_id, {}, 1368127991).should == "http://videos.sproutvideo.com/embed/1/abc123?signature=#{signature}&expires=#{expires_time}"
+			Sproutvideo::Video.signed_embed_code(@video_id, @security_token, {}, 1368127991).should == "http://videos.sproutvideo.com/embed/1/abc123?signature=#{signature}&expires=#{expires_time}"
 		end
 
 		it "should use the protocol that's passed in" do
-			Sproutvideo::Video.signed_embed_code(@video_id, {}, nil, 'https').should == "https://videos.sproutvideo.com/embed/1/abc123?signature=#{@signature}&expires=#{@expires_time}"
+			Sproutvideo::Video.signed_embed_code(@video_id, @security_token,{}, nil, 'https').should == "https://videos.sproutvideo.com/embed/1/abc123?signature=#{@signature}&expires=#{@expires_time}"
 		end
 
 		it "should sign other parameters too!" do
 			string_to_sign = "GET\nvideos.sproutvideo.com\n/embed/1/abc123\n&expires=#{@expires_time}&type=hd"
 			@signature = CGI::escape([OpenSSL::HMAC.digest(@digest, @api_key, string_to_sign)].pack("m").strip)
-			Sproutvideo::Video.signed_embed_code(@video_id, {'type' => 'hd'}).should == "http://videos.sproutvideo.com/embed/1/abc123?signature=#{@signature}&expires=#{@expires_time}&type=hd"
+			Sproutvideo::Video.signed_embed_code(@video_id, @security_token,{'type' => 'hd'}).should == "http://videos.sproutvideo.com/embed/1/abc123?signature=#{@signature}&expires=#{@expires_time}&type=hd"
 		end
 	end
 

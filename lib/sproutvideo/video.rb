@@ -26,13 +26,9 @@ module Sproutvideo
       delete("/videos/#{video_id}", options)
     end
 
-    def self.signed_embed_code(video_id, params={}, expires=nil, protocol='http')
-      #get video
-      resp = get("/videos/#{video_id}")
-      token = resp.body[:security_token]
-      
+    def self.signed_embed_code(video_id, security_token, params={}, expires=nil, protocol='http')      
       host = 'videos.sproutvideo.com'
-      path = "/embed/#{video_id}/#{token}"
+      path = "/embed/#{video_id}/#{security_token}"
       string_to_sign = "GET\n"
       string_to_sign << "#{host}\n"
       string_to_sign << "#{path}\n"
