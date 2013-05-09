@@ -29,6 +29,11 @@ module Sproutvideo
     def self.signed_embed_code(video_id, params={}, expires=nil, protocol='http')
       #get video
       resp = get("/videos/#{video_id}")
+      generate_signed_embed_code(resp, params, expires, protocol)
+    end
+
+    def self.generate_signed_embed_code(resp, params={}, expires=nil, protocol='http')
+      video_id = resp.body[:id] 
       token = resp.body[:security_token]
       
       host = 'videos.sproutvideo.com'
