@@ -101,7 +101,7 @@ Sproutvideo::Video.update('abc123', :tags => [])
 Pass in the id of the video you wish to delete.
 
 ```ruby
-Sproutvideo::Video.delete('abc123')
+Sproutvideo::Video.destroy('abc123')
 ```
 
 ##Signed Embed Codes
