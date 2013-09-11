@@ -20,7 +20,7 @@ ENV['SPROUTVIDEO_API_KEY'] = 'abcd1234'
 ```
 
 # Videos
-The following methods are available: `list`, `create`, `details`, `update`, `delete`.
+The following methods are available: `list`, `create`, `details`, `update`, `destroy`.
 
 ##list
 By default the videos listing is paginated with 25 videos per page and sorted by upload date in ascending order. You can pass two parameters to control the paging: page and per_page. You can also pass in the id of a tag to just return the videos tagged with that tag.
@@ -97,11 +97,11 @@ You can remove all of the tags from a video by just passing an empty array as th
 Sproutvideo::Video.update('abc123', :tags => [])
 ```
 
-##delete
+##destroy
 Pass in the id of the video you wish to delete.
 
 ```ruby
-Sproutvideo::Video.delete('abc123')
+Sproutvideo::Video.destroy('abc123')
 ```
 
 ##Signed Embed Codes
@@ -133,7 +133,7 @@ Sproutvideo::Video.signed_embed_code('abc123','def456', {}, nil, 'https') #Use h
 ```
 
 # Tags
-The following methods are available: `list`, `create`, `details`, `update`, `delete`.
+The following methods are available: `list`, `create`, `details`, `update`, `destroy`.
 
 ##list
 By default the tag listing is paginated with 25 tags per page and sorted by created at date in ascending order. You can pass two parameters to control the paging: page and per_page. 
@@ -155,15 +155,15 @@ Sproutvideo::Tag.create(:name => 'new tag')
 Sproutvideo::Tag.update('abc123', :name => 'updated tag name')
 ```
 
-##delete
+##destroy
 Pass in the id of the tag you wish to delete.
 
 ```ruby
-Sproutvideo::Tag.delete('abc123')
+Sproutvideo::Tag.destroy('abc123')
 ```
 
 # Playlists
-The following methods are available: `list`, `create`, `details`, `update`, `delete`.
+The following methods are available: `list`, `create`, `details`, `update`, `destroy`.
 ##list
 By default the playlist listing is paginated with 25 playlists per page and sorted by created at date in ascending order. You can pass two parameters to control the paging: page and per_page. 
 
@@ -209,15 +209,15 @@ You can remove all of the videos from a playlist by just passing an empty array 
 Sproutvideo::Playlist.update('abc123', :videos => [])
 ```
 
-##delete
+##destroy
 Pass in the id of the playlist you wish to delete.
 
 ```ruby
-Sproutvideo::Playlist.delete('abc123')
+Sproutvideo::Playlist.destroy('abc123')
 ```
 
 # Logins
-The following methods are available: `list`, `create`, `details`, `update`, `delete`
+The following methods are available: `list`, `create`, `details`, `update`, `destroy`
 
 ## list
 By default the login listing is paginated with 25 tags per page and sorted by created at date in ascending order. You can pass two parameters to control the paging: page and per_page.
@@ -253,14 +253,14 @@ Sproutvideo::Login.update('abc123',
   :password => 'newpassword')
 ```
 
-## delete
+## destroy
 Pass in the id of the login you wish to delete.
 
 ```ruby
-Sproutvideo::Login.delete('asdf1234')
+Sproutvideo::Login.destroy('asdf1234')
 ```
 # Access Grants
-The following methods are available: `list`, `create`, `details`, `update`, `delete`
+The following methods are available: `list`, `create`, `details`, `update`, `destroy`
 
 ## list
 By default the access grant listing is paginated with 25 tags per page and sorted by created at date in ascending order. You can pass two parameters to control the paging: page and per_page.
@@ -275,7 +275,7 @@ Sproutvideo::AccessGrant.list(:per_page => 10, :page => 2)
 Create takes two required parameters, `video_id` and `login_id`, which will be used to allow a viewer to login to watch a video based on the other optional parameters.
     
 ```ruby
-Sproutvideo::Login.create(
+Sproutvideo::AccessGrant.create(
   :video_id => 'abc123',
   :login_id => 'abc123')
 ```
@@ -284,7 +284,7 @@ Sproutvideo::Login.create(
 The string passed to details is the ID of a SproutVideo login.
 
 ```ruby
-Sproutvideo::Login.details('abc123')
+Sproutvideo::AccessGrant.details('abc123')
 ```
 
 ## update
@@ -292,16 +292,16 @@ Sproutvideo::Login.details('abc123')
 You can change the optional parameters for an access grant.
 
 ```ruby
-Sproutvideo::Login.update('abc123', 
+Sproutvideo::AccessGrant.update('abc123', 
   :allowed_plays => 20,
   :access_ends_at => DateTime.parse('8/4/2014'))
 ```
 
-## delete
+## destory
 Pass in the id of the access grant you wish to delete.
 
 ```ruby
-Sproutvideo::AccessGrant.delete('asdf1234')
+Sproutvideo::AccessGrant.destroy('asdf1234')
 ```
 #Analytics
 The following methods are available through the API client for analytics:
