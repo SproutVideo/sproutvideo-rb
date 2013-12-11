@@ -10,7 +10,7 @@ First, you'll need to install the gem
 The first thing you'll need to interact with the SproutVideo API is your API key. You can use your API key in one of two ways. The first and easiest is to set it and forget it on the Sproutvideo module like so:
 
 ```ruby
-SproutVideo.api_key = 'abcd1234'
+Sproutvideo.api_key = 'abcd1234'
 ```
 
 Alternatively, you can use an environment variable:
