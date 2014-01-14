@@ -23,14 +23,35 @@ ENV['SPROUTVIDEO_API_KEY'] = 'abcd1234'
 The following methods are available: `list`, `create`, `details`, `update`, `destroy`.
 
 ##list
-By default the videos listing is paginated with 25 videos per page and sorted by upload date in ascending order. You can pass two parameters to control the paging: page and per_page. You can also pass in the id of a tag to just return the videos tagged with that tag.
+By default the videos listing is paginated with 25 videos per page and sorted by upload date in ascending order.
+You can pass two parameters to control the paging: `page` and `per_page`.
 
 ```ruby
 Sproutvideo::Video.list
 Sproutvideo::Video.list(:per_page => 10)
 Sproutvideo::Video.list(:per_page => 10, :page => 2)
-Sproutvideo::Video.list(:tag_id => 'abc')
 ```
+
+You can control sorting order by `order_by` and `order_dir` parameter.
+
+```ruby
+Sproutvideo::Video.list(:order_by => "created_at")
+Sproutvideo::Video.list(:order_by => "updated_at")
+Sproutvideo::Video.list(:order_by => "title", :order_dir => "asc")
+Sproutvideo::Video.list(:order_by => "duration", :order_dir => "desc")
+```
+
+You can also pass `tag_id`, `tag_name`, `privacy` and `state` parameters to restrict result.
+
+```ruby
+Sproutvideo::Video.list(:tag_id => 'a323d32')
+Sproutvideo::Video.list(:tag_name => 'funny cat videos')
+Sproutvideo::Video.list(:privacy => 2)
+Sproutvideo::Video.list(:state => "processing")
+```
+
+Values of `privacy` is listed at [Video Privacy](http://sproutvideo.com/docs/api.html#VideoPrivacy) section.
+Values of `state` is listed at [Video States](http://sproutvideo.com/docs/api.html#VideoStates) section.
 
 ##details
 The string passed to details is the ID of a SproutVideo video.
