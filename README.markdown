@@ -20,7 +20,7 @@ ENV['SPROUTVIDEO_API_KEY'] = 'abcd1234'
 ```
 
 # Videos
-The following methods are available: `list`, `create`, `details`, `update`, `destroy`.
+The following methods are available: `list`, `create`, `details`, `update`, `upload_poster_frame`,`destroy`.
 
 ##list
 By default the videos listing is paginated with 25 videos per page and sorted by upload date in ascending order.
@@ -116,6 +116,12 @@ You can remove all of the tags from a video by just passing an empty array as th
 
 ```ruby
 Sproutvideo::Video.update('abc123', :tags => [])
+```
+##Upload poster frame
+You can upload a custom poster frame for a video by calling the upload_poster_frame method. The first parameter is the id of the video for wish you'd like the poster frame to be associated and the second parameter is the path to the image file.
+
+```ruby
+SproutVideo::Video.upload_poster_frame('abc123', '/path/to/image.jpg')
 ```
 
 ##destroy

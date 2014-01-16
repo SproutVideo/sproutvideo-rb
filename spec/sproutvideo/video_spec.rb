@@ -97,6 +97,32 @@ describe Sproutvideo::Video do
 
 	end
 
+	describe "#upload_poster_frame" do
+		before(:each) do
+			@video_id = 1
+			@url = "#{Sproutvideo.base_url}/videos/#{@video_id}"
+		end
+
+		it "should PUT the correct url and return a response" do
+			File.open('poster_test', 'w+') do |f|
+				f.syswrite('poster_frame')
+			end
+
+			file = File.open('poster_test')
+
+			File.stub!(:open).with('poster_test').and_yield(file)
+
+			RestClient.should_receive(:put).with(
+				@url,
+				{:custom_poster_frame => file},
+				{'SproutVideo-Api-Key' => @api_key, :timeout => 18000}).and_return(@msg)
+			Sproutvideo::Video.upload_poster_frame(@video_id, 'poster_test').class.should == Sproutvideo::Response
+
+			FileUtils.rm('poster_test')
+		end
+
+	end
+
 	describe "#delete" do
 		before(:each) do
 			@video_id = 1

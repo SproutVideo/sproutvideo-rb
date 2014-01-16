@@ -22,14 +22,25 @@ module Sproutvideo
 
     def self.upload(path, file_path, options={})
       resp = nil
+      
+      method = options.delete(:method) == :PUT ? :PUT : :POST
+
       File.open(file_path) do |file|
-        body = {:source_video => file}.merge(options.dup)
+        
+        if method == :POST
+          body = {:source_video => file}.merge(options.dup)
+        else
+          body = {:custom_poster_frame => file}
+        end
+
         begin
-          resp = RestClient.post(
+          resp = RestClient.send(
+            method == :POST ? 'post' : 'put',
             "#{base_url}#{path}",
             body,
             {'SproutVideo-Api-Key' => api_key, :timeout => 18000})
         rescue => e
+          puts e
           resp = e.response
         end
       end

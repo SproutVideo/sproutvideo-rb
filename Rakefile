@@ -2,7 +2,7 @@
 require 'rubygems'
 require 'bundler'
 
-require 'lib/sproutvideo/version.rb'
+require File.expand_path(File.dirname(__FILE__) + '/lib/sproutvideo/version.rb')
 
 begin
   Bundler.setup(:default, :development)
@@ -17,7 +17,7 @@ require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "sproutvideo-rb"
-  gem.homepage = "http://github.com/sproutvideo/sproutvideo-rb"
+  gem.homepage = "http://github.com/SproutVideo/sproutvideo-rb"
   gem.license = "MIT"
   gem.summary = %Q{SproutVideo API Client}
   gem.description = %Q{SproutVideo API Client}

@@ -22,6 +22,10 @@ module Sproutvideo
       put("/videos/#{video_id}", options)
     end
 
+    def self.upload_poster_frame(video_id, file_path='')
+      upload("/videos/#{video_id}", file_path, {:method => :PUT})
+    end
+
     def self.destroy(video_id, options={})
       delete("/videos/#{video_id}", options)
     end
