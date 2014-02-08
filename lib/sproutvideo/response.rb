@@ -5,7 +5,11 @@ module Sproutvideo
     def initialize(msg)
       self.status = msg.code
       self.raw_body = msg.to_s
-      self.body = MultiJson.decode(self.raw_body, :symbolize_keys => true)
+      begin
+        self.body = MultiJson.decode(self.raw_body, :symbolize_keys => true)
+      rescue MultiJson::DecodeError
+        self.body = msg.to_s
+      end
     end 
 
     def success?

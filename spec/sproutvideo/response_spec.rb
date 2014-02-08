@@ -36,6 +36,14 @@ describe Sproutvideo::Response do
 			msg = mock(:code => 200, :to_s => MultiJson.encode(body))
 			Sproutvideo::Response.new(msg).body.should == body
 		end
+
+		it "should handle parse errors" do
+			body = "this is not json"
+			msg = mock(:code => 500, :to_s => body)
+			resp = Sproutvideo::Response.new(msg)
+			resp.body.should == body
+			resp.success?.should == false
+		end
 	end
 
 
