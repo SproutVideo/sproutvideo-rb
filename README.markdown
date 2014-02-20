@@ -388,6 +388,12 @@ Sproutvideo::Analytics.engagement_sessions('abc123')
 Sproutvideo::Analytics.engagement_sessions('abc123', :page => 3)
 Sproutvideo::Analytics.engagement_sessions('abc123', :page => 3, :per_page => 40)
 ```
+
+You can also grab engagement sessions for a video for a specific email address like so:
+```ruby
+Sproutvideo::Analytics.engagement_sessions('abc123', :vemail => 'test@example.com')
+```
+
 # Contributing to sproutvideo-rb
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
