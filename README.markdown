@@ -83,6 +83,13 @@ Sproutvideo::Video.create('/path/to/video.mp4',
   :tags => ['ec61', 'abc123'])
 ```
 
+You can also create or add tags on the fly by passing in tag names:
+
+```ruby
+Sproutvideo::Video.create('/path/to/video.mp4',
+  :tag_names => ['Tag One', 'Tag Two'])
+```
+
 You can also specify a webhook url. We'll send an HTTP POST with the video json when the video has finished processing or if there was an error during processing:
 
 ```ruby
