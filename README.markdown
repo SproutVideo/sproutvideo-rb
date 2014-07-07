@@ -83,6 +83,13 @@ Sproutvideo::Video.create('/path/to/video.mp4',
   :tags => ['ec61', 'abc123'])
 ```
 
+You can also create or add tags on the fly by passing in tag names:
+
+```ruby
+Sproutvideo::Video.create('/path/to/video.mp4',
+  :tag_names => ['Tag One', 'Tag Two'])
+```
+
 You can also specify a webhook url. We'll send an HTTP POST with the video json when the video has finished processing or if there was an error during processing:
 
 ```ruby
@@ -395,6 +402,12 @@ Sproutvideo::Analytics.engagement_sessions('abc123')
 Sproutvideo::Analytics.engagement_sessions('abc123', :page => 3)
 Sproutvideo::Analytics.engagement_sessions('abc123', :page => 3, :per_page => 40)
 ```
+
+You can also grab engagement sessions for a video for a specific email address like so:
+```ruby
+Sproutvideo::Analytics.engagement_sessions('abc123', :vemail => 'test@example.com')
+```
+
 # Contributing to sproutvideo-rb
 
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
