@@ -96,7 +96,6 @@ Sproutvideo::Video.create('/path/to/video.mp4',
 ```ruby
 Sproutvideo::Video.update('abc123', :title => 'Updated Title')
 ```
-
 ## Tags
 To add a tag to a video, make sure to include all of the tags currently associated with the video. For instance if the video already has tags with the ids "abc" and "123" and you want to add a tag with the id "def" do pass "abc", "123" and "def" to the update method.
 
@@ -158,12 +157,20 @@ Sproutvideo::Video.signed_embed_code('abc123','def456', {'type' => 'hd'}) #set p
 Sproutvideo::Video.signed_embed_code('abc123','def456', {}, 1368127991) #set a specific expiration time for the signed embed code. (By default the expiration time is set to 5 minutes from the time the signed embed code was generated).
 Sproutvideo::Video.signed_embed_code('abc123','def456', {}, nil, 'https') #Use https instead of http
 ```
+# Upload Tokens
+The following methods are available: `create`
+
+## Create
+```ruby
+Sproutvideo::UploadToken.create
+Sproutvideo::UploadToken.create(:return_url => 'http://example.com')
+Sproutvideo::UploadToken.create(:return_url => 'http://example.com', :seconds_valid => 3600)
 
 # Tags
 The following methods are available: `list`, `create`, `details`, `update`, `destroy`.
 
 ##list
-By default the tag listing is paginated with 25 tags per page and sorted by created at date in ascending order. You can pass two parameters to control the paging: page and per_page. 
+By default the tag listing is paginated with 25 tags per page and sorted by created at date in ascending order. You can pass two parameters to control the paging: page and per_page.
 
 ```ruby
 Sproutvideo::Tag.list
@@ -172,7 +179,7 @@ Sproutvideo::Tag.list(:per_page => 10, :page => 2)
 ```
 
 ##create
-    
+
 ```ruby
 Sproutvideo::Tag.create(:name => 'new tag')
 ```
@@ -192,7 +199,7 @@ Sproutvideo::Tag.destroy('abc123')
 # Playlists
 The following methods are available: `list`, `create`, `details`, `update`, `destroy`.
 ##list
-By default the playlist listing is paginated with 25 playlists per page and sorted by created at date in ascending order. You can pass two parameters to control the paging: page and per_page. 
+By default the playlist listing is paginated with 25 playlists per page and sorted by created at date in ascending order. You can pass two parameters to control the paging: page and per_page.
 
 ```ruby
 Sproutvideo::Playlist.list
@@ -257,7 +264,7 @@ Sproutvideo::Login.list(:per_page => 10, :page => 2)
 
 ## create
 Create takes two required parameters, `email` and `password`, which will be used to allow a viewer to login to watch a video if the login has an assocaited `access_grant` for that video.
-    
+
 ```ruby
 Sproutvideo::Login.create(
   :email => 'test@example.com',
@@ -276,7 +283,7 @@ Sproutvideo::Login.details('abc123')
 You can change the password for a login.
 
 ```ruby
-Sproutvideo::Login.update('abc123', 
+Sproutvideo::Login.update('abc123',
   :password => 'newpassword')
 ```
 
@@ -300,7 +307,7 @@ Sproutvideo::AccessGrant.list(:per_page => 10, :page => 2)
 
 ## create
 Create takes two required parameters, `video_id` and `login_id`, which will be used to allow a viewer to login to watch a video based on the other optional parameters.
-    
+
 ```ruby
 Sproutvideo::AccessGrant.create(
   :video_id => 'abc123',
@@ -319,7 +326,7 @@ Sproutvideo::AccessGrant.details('abc123')
 You can change the optional parameters for an access grant.
 
 ```ruby
-Sproutvideo::AccessGrant.update('abc123', 
+Sproutvideo::AccessGrant.update('abc123',
   :allowed_plays => 20,
   :access_ends_at => DateTime.parse('8/4/2014'))
 ```
@@ -389,7 +396,7 @@ Sproutvideo::Analytics.engagement_sessions('abc123', :page => 3)
 Sproutvideo::Analytics.engagement_sessions('abc123', :page => 3, :per_page => 40)
 ```
 # Contributing to sproutvideo-rb
- 
+
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
 * Fork the project.
