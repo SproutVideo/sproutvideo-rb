@@ -103,7 +103,8 @@ Sproutvideo::Video.create('/path/to/video.mp4',
 ```ruby
 Sproutvideo::Video.update('abc123', :title => 'Updated Title')
 ```
-## Tags
+
+# Tags
 To add a tag to a video, make sure to include all of the tags currently associated with the video. For instance if the video already has tags with the ids "abc" and "123" and you want to add a tag with the id "def" do pass "abc", "123" and "def" to the update method.
 
 ```ruby
