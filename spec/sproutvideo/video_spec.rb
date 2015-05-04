@@ -36,7 +36,7 @@ describe Sproutvideo::Video do
 		end
 
 		it "should GET the correct url and return a response" do
-			
+
 			RestClient.should_receive(:get).with(
 				@url,
 				{'SproutVideo-Api-Key' => @api_key, :params => {:page => 1, :per_page => 25}}).and_return(@msg)
@@ -141,15 +141,15 @@ describe Sproutvideo::Video do
 		before(:each) do
 			@video_id = 1
 			@security_token = 'abc123'
-			@digest = OpenSSL::Digest::Digest.new('sha1')
-			OpenSSL::Digest::Digest.stub!(:new).and_return(@digest)
+			@digest = OpenSSL::Digest.new('sha1')
+			OpenSSL::Digest.stub!(:new).and_return(@digest)
 			time = Time.now
 			Time.stub!(:now).and_return(time)
 			@expires_time = time.to_i+300
 			string_to_sign = "GET\nvideos.sproutvideo.com\n/embed/1/abc123\n&expires=#{@expires_time}"
 			@signature = CGI::escape([OpenSSL::HMAC.digest(@digest, @api_key, string_to_sign)].pack("m").strip)
 		end
-		
+
 		it "should sign the embed code" do
 			Sproutvideo::Video.signed_embed_code(@video_id, @security_token).should == "http://videos.sproutvideo.com/embed/1/abc123?signature=#{@signature}&expires=#{@expires_time}"
 		end

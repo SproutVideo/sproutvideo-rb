@@ -1,6 +1,6 @@
 module Sproutvideo
   class Video < Resource
-    
+
     def self.create(file_path='', options={})
       upload("/videos", file_path, options)
     end
@@ -30,13 +30,13 @@ module Sproutvideo
       delete("/videos/#{video_id}", options)
     end
 
-    def self.signed_embed_code(video_id, security_token, params={}, expires=nil, protocol='http')      
+    def self.signed_embed_code(video_id, security_token, params={}, expires=nil, protocol='http')
       host = 'videos.sproutvideo.com'
       path = "/embed/#{video_id}/#{security_token}"
       string_to_sign = "GET\n"
       string_to_sign << "#{host}\n"
       string_to_sign << "#{path}\n"
-      
+
       expires = Time.now.to_i + 300 unless expires
 
       params = params.merge('expires' => expires)
@@ -51,10 +51,10 @@ module Sproutvideo
 
       string_to_sign << "#{url_params}"
 
-      digest = OpenSSL::Digest::Digest.new('sha1')
+      digest = OpenSSL::Digest.new('sha1')
       b64_hmac = [OpenSSL::HMAC.digest(digest, Sproutvideo.api_key, string_to_sign)].pack("m").strip
-      signature = CGI.escape(b64_hmac) 
-    
+      signature = CGI.escape(b64_hmac)
+
       "#{protocol}://#{host}#{path}?signature=#{signature}#{actual_url_params}"
     end
 
