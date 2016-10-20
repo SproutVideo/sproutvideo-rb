@@ -1,4 +1,4 @@
-#SproutVideo
+# SproutVideo
 Use this gem to interact with the [SproutVideo API](http://sproutvideo.com/docs/api.html)
 
 # Getting Started
@@ -102,6 +102,13 @@ Sproutvideo::Video.create('/path/to/video.mp4',
 
 ```ruby
 Sproutvideo::Video.update('abc123', :title => 'Updated Title')
+```
+
+##replace
+The first parameter is the id of the video you wish to replace. The second parameter is the local path to the video file.
+
+```ruby
+Sproutvideo::Video.replace('abc123', '/path/to/video.mp4')
 ```
 
 # Tags
@@ -409,6 +416,23 @@ You can also grab engagement sessions for a video for a specific email address l
 Sproutvideo::Analytics.engagement_sessions('abc123', :vemail => 'test@example.com')
 ```
 
+# Account
+The following methods are available: `details`, `update`.
+
+## details
+To get information about your account:
+
+```ruby
+Sproutvideo::Account.details
+```
+
+## update
+To update account settings:
+
+```ruby
+Sproutvideo::Account.update({download_sd: true})
+```
+
 # Contributing to sproutvideo-rb
 
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
@@ -421,5 +445,5 @@ Sproutvideo::Analytics.engagement_sessions('abc123', :vemail => 'test@example.co
 
 # Copyright
 
-Copyright (c) 2012 SproutVideo. See LICENSE.txt for
+Copyright (c) 2016 SproutVideo. See LICENSE.txt for
 further details.

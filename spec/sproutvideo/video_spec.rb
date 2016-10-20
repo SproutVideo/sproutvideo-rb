@@ -30,13 +30,35 @@ describe Sproutvideo::Video do
 		end
 	end
 
+	describe "#replace" do
+		it "should POST to the correct url and return a response" do
+			#create temp file
+			File.open("upload_test", "w+") do |f|
+				f.syswrite("upload!")
+			end
+
+			file = File.open('upload_test')
+
+			File.stub!(:open).with('upload_test').and_yield(file)
+
+			RestClient.should_receive(:post).with(
+				"#{Sproutvideo.base_url}/videos/asdf/replace",
+				{:source_video => file},
+				{'SproutVideo-Api-Key' => @api_key, :timeout => 18000}).and_return(@msg)
+
+			Sproutvideo::Video.replace('asdf','upload_test').class.should == Sproutvideo::Response
+
+			FileUtils.rm('upload_test')
+		end
+	end
+
 	describe "#list" do
 		before(:each) do
 			@url = "#{Sproutvideo.base_url}/videos"
 		end
 
 		it "should GET the correct url and return a response" do
-			
+
 			RestClient.should_receive(:get).with(
 				@url,
 				{'SproutVideo-Api-Key' => @api_key, :params => {:page => 1, :per_page => 25}}).and_return(@msg)
@@ -149,7 +171,7 @@ describe Sproutvideo::Video do
 			string_to_sign = "GET\nvideos.sproutvideo.com\n/embed/1/abc123\n&expires=#{@expires_time}"
 			@signature = CGI::escape([OpenSSL::HMAC.digest(@digest, @api_key, string_to_sign)].pack("m").strip)
 		end
-		
+
 		it "should sign the embed code" do
 			Sproutvideo::Video.signed_embed_code(@video_id, @security_token).should == "http://videos.sproutvideo.com/embed/1/abc123?signature=#{@signature}&expires=#{@expires_time}"
 		end
