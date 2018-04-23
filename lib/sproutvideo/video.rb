@@ -55,7 +55,7 @@ module Sproutvideo
 
       string_to_sign << "#{url_params}"
 
-      digest = OpenSSL::Digest::Digest.new('sha1')
+      digest = OpenSSL::Digest.new('sha1')
       b64_hmac = [OpenSSL::HMAC.digest(digest, Sproutvideo.api_key, string_to_sign)].pack("m").strip
       signature = CGI.escape(b64_hmac)
 

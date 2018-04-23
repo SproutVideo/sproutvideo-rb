@@ -163,8 +163,8 @@ describe Sproutvideo::Video do
 		before(:each) do
 			@video_id = 1
 			@security_token = 'abc123'
-			@digest = OpenSSL::Digest::Digest.new('sha1')
-			OpenSSL::Digest::Digest.stub!(:new).and_return(@digest)
+			@digest = OpenSSL::Digest.new('sha1')
+			OpenSSL::Digest.stub!(:new).and_return(@digest)
 			time = Time.now
 			Time.stub!(:now).and_return(time)
 			@expires_time = time.to_i+300
