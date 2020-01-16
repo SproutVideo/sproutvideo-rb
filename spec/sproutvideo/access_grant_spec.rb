@@ -13,7 +13,7 @@ describe Sproutvideo::AccessGrant do
 		end
 
 		it "should POST the correct url and return a response" do
-			data = {:email => 'test@example.com', :password => 'password'}
+			data = {:video_id => 'video_id', :login_d => 'login_id'}
 			RestClient.should_receive(:post).with(
 				@url,
 				MultiJson.encode(data),
@@ -71,7 +71,7 @@ describe Sproutvideo::AccessGrant do
 		end
 
 		it "should PUT the correct url and return a response" do
-			data = {:password => 'new password'}
+			data = {:allowed_plays => 10}
 
 			RestClient.should_receive(:put).with(
 				@url,
@@ -93,6 +93,17 @@ describe Sproutvideo::AccessGrant do
 				@url,
 				{'SproutVideo-Api-Key' => @api_key, :params=> {}}).and_return(@msg)
 			Sproutvideo::AccessGrant.destroy(@access_grant_id).class.should == Sproutvideo::Response
+		end
+	end
+
+	describe "#bulk_create" do
+		it "should POST the correct url and return a response" do
+			data = [{:video_id => 'video_id', :login_id => 'login_id_1'}, {:video_id => 'video_id', :login_id => 'login_id_2'}]
+			RestClient.should_receive(:post).with(
+				"#{Sproutvideo.base_url}/access_grants/bulk",
+				MultiJson.encode(data),
+				{'SproutVideo-Api-Key' => @api_key}).and_return(@msg)
+			Sproutvideo::AccessGrant.bulk_create(data).class.should == Sproutvideo::Response
 		end
 	end
 

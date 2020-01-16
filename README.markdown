@@ -371,6 +371,20 @@ Sproutvideo::AccessGrant.create(
   :video_id => 'abc123',
   :login_id => 'abc123')
 ```
+## bulk_create
+bulk_create takes an array of access grant objects and creates them in a single API call to efficiently create access grants in bulk and reduce the number of API calls needed.
+
+```ruby
+Sproutvideo::AccessGrant.bulk_create([
+  {
+    :video_id => 'abc123',
+    :login_id => 'abc123'
+  },{
+    :video_id => 'def456',
+    :login_id => 'def456'
+  }
+])
+```
 
 ## details
 The string passed to details is the ID of a SproutVideo login.
