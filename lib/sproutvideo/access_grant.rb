@@ -26,5 +26,9 @@ module Sproutvideo
 			delete("/access_grants/#{access_grant_id}", options)
 		end
 
+		def self.bulk_create(access_grants, options={})
+			post("/access_grants/bulk", options)
+		end
+
 	end
 end

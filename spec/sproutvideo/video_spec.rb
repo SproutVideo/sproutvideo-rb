@@ -154,7 +154,7 @@ describe Sproutvideo::Video do
 		it "should DELETE the correct url and return a response" do
 			RestClient.should_receive(:delete).with(
 				@url,
-				{'SproutVideo-Api-Key' => @api_key}).and_return(@msg)
+				{'SproutVideo-Api-Key' => @api_key, :params =>  {}}).and_return(@msg)
 			Sproutvideo::Video.destroy(@video_id).class.should == Sproutvideo::Response
 		end
 	end
@@ -163,8 +163,8 @@ describe Sproutvideo::Video do
 		before(:each) do
 			@video_id = 1
 			@security_token = 'abc123'
-			@digest = OpenSSL::Digest::Digest.new('sha1')
-			OpenSSL::Digest::Digest.stub!(:new).and_return(@digest)
+			@digest = OpenSSL::Digest.new('sha1')
+			OpenSSL::Digest.stub!(:new).and_return(@digest)
 			time = Time.now
 			Time.stub!(:now).and_return(time)
 			@expires_time = time.to_i+300

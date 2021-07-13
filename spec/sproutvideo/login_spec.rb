@@ -91,7 +91,7 @@ describe Sproutvideo::Login do
 		it "should DELETE the correct url and return a response" do
 			RestClient.should_receive(:delete).with(
 				@url,
-				{'SproutVideo-Api-Key' => @api_key}).and_return(@msg)
+				{'SproutVideo-Api-Key' => @api_key, :params =>  {}}).and_return(@msg)
 			Sproutvideo::Login.destroy(@login_id).class.should == Sproutvideo::Response
 		end
 	end

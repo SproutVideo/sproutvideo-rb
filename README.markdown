@@ -22,7 +22,7 @@ ENV['SPROUTVIDEO_API_KEY'] = 'abcd1234'
 # Videos
 The following methods are available: `list`, `create`, `details`, `update`, `upload_poster_frame`,`destroy`.
 
-##list
+## list
 By default the videos listing is paginated with 25 videos per page and sorted by upload date in ascending order.
 You can pass two parameters to control the paging: `page` and `per_page`.
 
@@ -53,14 +53,14 @@ Sproutvideo::Video.list(:state => "processing")
 Values of `privacy` is listed at [Video Privacy](http://sproutvideo.com/docs/api.html#VideoPrivacy) section.
 Values of `state` is listed at [Video States](http://sproutvideo.com/docs/api.html#VideoStates) section.
 
-##details
+## details
 The string passed to details is the ID of a SproutVideo video.
 
 ```ruby
 Sproutvideo::Video.details('abc123')
 ```
 
-##create
+## create
 The most basic upload you can perform is to just pass the path to the video file to the method. The title of the video will default to the name of the file.
 
 ```ruby
@@ -97,21 +97,21 @@ Sproutvideo::Video.create('/path/to/video.mp4',
   :notification_url => 'http://example.com/webhook_url')
 ```
 
-##update
+## update
  The first parameter is the id of the video you wish to edit. The second parameter is a hash of attributes to update on the video.
 
 ```ruby
 Sproutvideo::Video.update('abc123', :title => 'Updated Title')
 ```
 
-##replace
+## Replace a video
 The first parameter is the id of the video you wish to replace. The second parameter is the local path to the video file.
 
 ```ruby
 Sproutvideo::Video.replace('abc123', '/path/to/video.mp4')
 ```
 
-# Tags
+## Dealing with tags
 To add a tag to a video, make sure to include all of the tags currently associated with the video. For instance if the video already has tags with the ids "abc" and "123" and you want to add a tag with the id "def" do pass "abc", "123" and "def" to the update method.
 
 ```ruby
@@ -131,25 +131,25 @@ You can remove all of the tags from a video by just passing an empty array as th
 ```ruby
 Sproutvideo::Video.update('abc123', :tags => [])
 ```
-##Upload poster frame
+## Upload poster frame
 You can upload a custom poster frame for a video by calling the upload_poster_frame method. The first parameter is the id of the video for wish you'd like the poster frame to be associated and the second parameter is the path to the image file.
 
 ```ruby
 SproutVideo::Video.upload_poster_frame('abc123', '/path/to/image.jpg')
 ```
 
-##destroy
+## destroy
 Pass in the id of the video you wish to delete.
 
 ```ruby
 Sproutvideo::Video.destroy('abc123')
 ```
 
-##Signed Embed Codes
+## Signed Embed Codes
 You can use this convenience method to sign an embed code. It will return the embed code URL which can be used to build an iframe embed code.
 `Sproutvideo::Video.signed_embed_code(video_id, security_token, query_parameters, expiration_time, protocol)`
 
-###Parameters
+### Parameters
 video_id - _String_ (_Required_)
 : The id of the video for which you're generating the signed embed code
 
@@ -165,7 +165,7 @@ expiration_time - _Integer_ (_Optional_)
 protocol - _String_ (_Optional_)
 : `http` or `https`. Defaults to `http`
 
-###Examples
+### Examples
 ```ruby
 Sproutvideo::Video.signed_embed_code('abc123','def456') #sign a base embed code with no other options
 Sproutvideo::Video.signed_embed_code('abc123','def456', {'type' => 'hd'}) #set parameters for the embed code such as changing the default video type to HD
@@ -180,11 +180,12 @@ The following methods are available: `create`
 Sproutvideo::UploadToken.create
 Sproutvideo::UploadToken.create(:return_url => 'http://example.com')
 Sproutvideo::UploadToken.create(:return_url => 'http://example.com', :seconds_valid => 3600)
+```
 
 # Tags
 The following methods are available: `list`, `create`, `details`, `update`, `destroy`.
 
-##list
+## list
 By default the tag listing is paginated with 25 tags per page and sorted by created at date in ascending order. You can pass two parameters to control the paging: page and per_page.
 
 ```ruby
@@ -193,27 +194,69 @@ Sproutvideo::Tag.list(:per_page => 10)
 Sproutvideo::Tag.list(:per_page => 10, :page => 2)
 ```
 
-##create
+## create
 
 ```ruby
 Sproutvideo::Tag.create(:name => 'new tag')
 ```
 
-##update
+## update
 ```ruby
 Sproutvideo::Tag.update('abc123', :name => 'updated tag name')
 ```
 
-##destroy
+## destroy
 Pass in the id of the tag you wish to delete.
 
 ```ruby
 Sproutvideo::Tag.destroy('abc123')
 ```
+# Folders
+The following methods are available: `list`, `create`, `details`, `update`, `destroy`.
+## list
+By default, the folder listing is paginated with 25 folders per page and sorted by `created_at` date in ascending order. You can pass tow parameters to control the paging: `page` and `per_page`. If you do not pass in a `parent_id` only the folders within the root folder will be returned. To get the folders in a specific folder, make sure to pass in that folder's id using the `parent_id` parameter.
+```ruby
+Sproutvideo::Folder.list
+Sproutvideo::Folder.last(:per_page => 10)
+Sproutvideo::Folder.last(:per_page => 10, :page => 2)
+Sproutvideo::Folder.last(:parent_id => 'def456')
+```
+
+## create
+Creating a folder without a `parent_id` will place that folder in the root folder. Passing in a `parent_id` will place the newly created folder in the folder specified by `parent_id`.
+
+```ruby
+# folder is created in the root folder.
+Sproutvideo::Folder.create(:name => 'New Folder')
+
+# folder is created as a child of the folder specified by the id 'def456'
+Sproutvideo::Folder.create(:name => 'New Folder', :parent_id => 'def456')
+```
+
+## details
+```ruby
+Sproutvideo::Folder.details('def456')
+```
+
+## update
+```ruby
+Sproutvideo::Folder.update('def456', :name => 'New Folder Name')
+```
+
+## delete
+By default, when deleting a folder, all of the contents of that folder (videos and folders), will be moved the root folder to prevent unintended data loss. If you wish to actually delete all of the content of a folder, make sure to pass in `delete_all` as true.
+
+```ruby
+# delete the folder and move it's contents to the root folder
+Sproutvideo::Folder.delete('def456')
+
+# delete the folder and everything in it.
+Sproutvideo::Folder.delete('def456', :delete_all => true)
+```
 
 # Playlists
 The following methods are available: `list`, `create`, `details`, `update`, `destroy`.
-##list
+## list
 By default the playlist listing is paginated with 25 playlists per page and sorted by created at date in ascending order. You can pass two parameters to control the paging: page and per_page.
 
 ```ruby
@@ -222,7 +265,7 @@ Sproutvideo::Playlist.list(:per_page => 10)
 Sproutvideo::Playlist.list(:per_page => 10, :page => 2)
 ```
 
-##create
+## create
 You can add videos to a playlist when creating it by passing in the videos you'd like to add in the videos parameter in the order you'd like them to appear.
 
 ```ruby
@@ -231,7 +274,7 @@ Sproutvideo::Playlist.create(
   :privacy => 2,
   :videos => ['abc123','def456','ghi789'])
 ```
-##update
+## update
 
 ```ruby
 Sproutvideo::Playlist.update('abc123',
@@ -258,7 +301,7 @@ You can remove all of the videos from a playlist by just passing an empty array 
 Sproutvideo::Playlist.update('abc123', :videos => [])
 ```
 
-##destroy
+## destroy
 Pass in the id of the playlist you wish to delete.
 
 ```ruby
@@ -328,6 +371,20 @@ Sproutvideo::AccessGrant.create(
   :video_id => 'abc123',
   :login_id => 'abc123')
 ```
+## bulk_create
+bulk_create takes an array of access grant objects and creates them in a single API call to efficiently create access grants in bulk and reduce the number of API calls needed.
+
+```ruby
+Sproutvideo::AccessGrant.bulk_create([
+  {
+    :video_id => 'abc123',
+    :login_id => 'abc123'
+  },{
+    :video_id => 'def456',
+    :login_id => 'def456'
+  }
+])
+```
 
 ## details
 The string passed to details is the ID of a SproutVideo login.
@@ -346,7 +403,7 @@ Sproutvideo::AccessGrant.update('abc123',
   :access_ends_at => DateTime.parse('8/4/2014'))
 ```
 
-## destory
+## destroy
 Pass in the id of the access grant you wish to delete.
 
 ```ruby
@@ -393,7 +450,7 @@ Lastly, the geo method can take an optional :country to retrieve playback data b
 Sproutvideo::Analytics.geo(:video_id => 'abc123', :country => 'US')
 ```
 
-#Engagement
+# Engagement
 You can grab the total number of seconds of your videos that have been watched like this:
 ```ruby
 Sproutvideo::Analytics.engagement

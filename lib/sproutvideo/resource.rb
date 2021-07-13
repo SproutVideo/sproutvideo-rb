@@ -20,7 +20,7 @@ module Sproutvideo
       Response.new(resp)
     end
 
-    def self.upload(path, file_path, options={})
+    def self.upload(path, file_path, options = {})
       resp = nil
       
       method = options.delete(:method) == :PUT ? :PUT : :POST
@@ -48,7 +48,7 @@ module Sproutvideo
       Response.new(resp)
     end
 
-    def self.get(path, options={})
+    def self.get(path, options = {})
       begin
         resp = RestClient.get(
           "#{base_url}#{path}",
@@ -59,7 +59,7 @@ module Sproutvideo
       Response.new(resp)
     end
 
-    def self.put(path, options={})
+    def self.put(path, options = {})
       body = MultiJson.encode(options.dup)
       begin
         resp = RestClient.put(
@@ -72,11 +72,11 @@ module Sproutvideo
       Response.new(resp)
     end
 
-    def self.delete(path, options={})
+    def self.delete(path, options = {})
       begin
         resp = RestClient.delete(
           "#{base_url}#{path}",
-          {'SproutVideo-Api-Key' => api_key})
+          {'SproutVideo-Api-Key' => api_key, :params => options.dup})
       rescue => e
         resp = e.response
       end
