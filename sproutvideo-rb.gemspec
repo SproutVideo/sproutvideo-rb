@@ -38,6 +38,7 @@ Gem::Specification.new do |s|
     "lib/sproutvideo/upload_token.rb",
     "lib/sproutvideo/version.rb",
     "lib/sproutvideo/video.rb",
+    "lib/sproutvideo/folder.rb",
     "spec/spec_helper.rb",
     "spec/sproutvideo/access_grant_spec.rb",
     "spec/sproutvideo/account_spec.rb",
