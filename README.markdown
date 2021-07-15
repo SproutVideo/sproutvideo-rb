@@ -135,7 +135,7 @@ Sproutvideo::Video.update('abc123', :tags => [])
 You can upload a custom poster frame for a video by calling the upload_poster_frame method. The first parameter is the id of the video for wish you'd like the poster frame to be associated and the second parameter is the path to the image file.
 
 ```ruby
-SproutVideo::Video.upload_poster_frame('abc123', '/path/to/image.jpg')
+Sproutvideo::Video.upload_poster_frame('abc123', '/path/to/image.jpg')
 ```
 
 ## destroy
@@ -248,10 +248,10 @@ By default, when deleting a folder, all of the contents of that folder (videos a
 
 ```ruby
 # delete the folder and move it's contents to the root folder
-Sproutvideo::Folder.delete('def456')
+Sproutvideo::Folder.destroy('def456')
 
 # delete the folder and everything in it.
-Sproutvideo::Folder.delete('def456', :delete_all => true)
+Sproutvideo::Folder.destroy('def456', :delete_all => true)
 ```
 
 # Playlists
@@ -425,7 +425,7 @@ Each method can be called on it's own for overall account data for all time like
 ```ruby
 Sproutvideo::Analytics.play_counts
 Sproutvideo::Analytics.domains
-SproutVideo::Analytics.geo
+Sproutvideo::Analytics.geo
 Sproutvideo::Analytics.video_types
 Sproutvideo::Analytics.playback_types
 Sproutvideo::Analytics.device_types
@@ -434,7 +434,7 @@ Each method can also take an options hash containing a :video_id for retrieving 
 ```ruby
 Sproutvideo::Analytics.play_counts(:video_id => 'abc123')
 Sproutvideo::Analytics.domains(:video_id => 'abc123')
-SproutVideo::Analytics.geo(:video_id => 'abc123')
+Sproutvideo::Analytics.geo(:video_id => 'abc123')
 Sproutvideo::Analytics.video_types(:video_id => 'abc123')
 Sproutvideo::Analytics.playback_types(:video_id => 'abc123')
 Sproutvideo::Analytics.device_types(:video_id => 'abc123')
