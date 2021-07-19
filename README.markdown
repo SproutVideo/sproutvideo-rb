@@ -351,6 +351,7 @@ Pass in the id of the login you wish to delete.
 ```ruby
 Sproutvideo::Login.destroy('asdf1234')
 ```
+
 # Access Grants
 The following methods are available: `list`, `create`, `details`, `update`, `destroy`
 
@@ -488,6 +489,53 @@ To update account settings:
 
 ```ruby
 Sproutvideo::Account.update({download_sd: true})
+```
+
+# Subtitles
+The following methods are available: `list`, `create`, `details`, `update`, `destroy`. All requests for a subtitle must be given a `video_id` option indicating the video that you want to access or update the subtitles of.
+
+## list
+By default the subtitle listing is paginated with 25 tags per page and sorted by created at date in ascending order. You can pass two parameters to control the paging: page and per_page.
+
+```ruby
+Sproutvideo::Subtitle.list(:video_id => 'abc123')
+Sproutvideo::Subtitle.list(:video_id => 'abc123', :per_page => 10)
+Sproutvideo::Subtitle.list(:video_id => 'abc123', :per_page => 10, :page => 2)
+```
+
+## create
+Create takes three required parameters, `video_id`, `language`, and `content`, which will be to add the newly created subtitle file and associate it with the provided video id.
+
+```ruby
+Sproutvideo::Subtitle.create(
+  :video_id => 'abc123',
+  :language => 'en',
+  :content => 'WEBVTT FILE...')
+```
+
+## details
+pass both the video and the subtitle id.
+
+```ruby
+Sproutvideo::Subtitle.details(:video_id => 'abc123', id: 'fdc432')
+```
+
+## update
+
+You can change the optional parameters for a subtitle.
+
+```ruby
+Sproutvideo::Subtitle.create(
+  :video_id => 'abc123',
+  :language => 'de',
+  :id => 'fdc432')
+```
+
+## destroy
+Pass in the id of the access grant you wish to delete.
+
+```ruby
+Sproutvideo::Subtitle.destroy(:video_id => 'abc123', id: 'fdc432')
 ```
 
 # Contributing to sproutvideo-rb
