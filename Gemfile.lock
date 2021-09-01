@@ -10,8 +10,7 @@ GEM
     mime-types (2.99.3)
     multi_json (1.14.1)
     netrc (0.11.0)
-    rdoc (3.12.2)
-      json (~> 1.4)
+    rdoc (6.3.1)
     rest-client (1.8.0)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
@@ -34,7 +33,7 @@ PLATFORMS
 DEPENDENCIES
   json (~> 1.8.6)
   multi_json
-  rdoc (~> 3.12.1)
+  rdoc (~> 6.3.1)
   rest-client (~> 1.8.0)
   rspec (~> 2.8.0)
 
