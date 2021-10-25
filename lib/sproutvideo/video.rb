@@ -61,6 +61,5 @@ module Sproutvideo
 
       "#{protocol}://#{host}#{path}?signature=#{signature}#{actual_url_params}"
     end
-
   end
 end
