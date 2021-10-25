@@ -6,7 +6,7 @@
 
 Gem::Specification.new do |s|
   s.name = "sproutvideo-rb"
-  s.version = "1.7.0"
+  s.version = "1.7.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
@@ -38,6 +38,7 @@ Gem::Specification.new do |s|
     "lib/sproutvideo/upload_token.rb",
     "lib/sproutvideo/version.rb",
     "lib/sproutvideo/video.rb",
+    "lib/sproutvideo/folder.rb",
     "spec/spec_helper.rb",
     "spec/sproutvideo/access_grant_spec.rb",
     "spec/sproutvideo/account_spec.rb",
@@ -50,6 +51,7 @@ Gem::Specification.new do |s|
     "spec/sproutvideo/tag_spec.rb",
     "spec/sproutvideo/upload_token_spec.rb",
     "spec/sproutvideo/video_spec.rb",
+    "spec/sproutvideo/folder_spec.rb",
     "spec/sproutvideo_spec.rb",
     "sproutvideo-rb.gemspec"
   ]
