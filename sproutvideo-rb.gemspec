@@ -41,6 +41,7 @@ Gem::Specification.new do |s|
     "lib/sproutvideo/folder.rb",
     "lib/sproutvideo/subtitle.rb",
     "lib/sproutvideo/call_to_action.rb",
+    "lib/sproutvideo/live_stream.rb",
     "spec/spec_helper.rb",
     "spec/sproutvideo/access_grant_spec.rb",
     "spec/sproutvideo/account_spec.rb",
@@ -56,6 +57,7 @@ Gem::Specification.new do |s|
     "spec/sproutvideo/folder_spec.rb",
     "spec/sproutvideo/subtitle_spec.rb",
     "spec/sproutvideo/call_to_action_spec.rb",
+    "spec/sproutvideo/live_stream_spec.rb",
     "spec/sproutvideo_spec.rb",
     "sproutvideo-rb.gemspec"
   ]
