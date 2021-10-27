@@ -2,11 +2,11 @@ module Sproutvideo
   class Video < Resource
 
     def self.create(file_path='', options={})
-      upload("/videos", file_path, options)
+      upload("/videos", file_path, options, :source_video)
     end
 
     def self.replace(video_id, file_path='')
-      upload("/videos/#{video_id}/replace", file_path)
+      upload("/videos/#{video_id}/replace", file_path, {}, :source_video)
     end
 
     def self.list(options={})
@@ -27,7 +27,7 @@ module Sproutvideo
     end
 
     def self.upload_poster_frame(video_id, file_path='')
-      upload("/videos/#{video_id}", file_path, {:method => :PUT})
+      upload("/videos/#{video_id}", file_path, {:method => :PUT}, :custom_poster_frame)
     end
 
     def self.destroy(video_id, options={})

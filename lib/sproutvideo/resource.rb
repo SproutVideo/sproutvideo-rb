@@ -20,18 +20,14 @@ module Sproutvideo
       Response.new(resp)
     end
 
-    def self.upload(path, file_path, options = {})
+    def self.upload(path, file_path, options = {}, field_name)
       resp = nil
-      
+
       method = options.delete(:method) == :PUT ? :PUT : :POST
 
       File.open(file_path) do |file|
-        
-        if method == :POST
-          body = {:source_video => file}.merge(options.dup)
-        else
-          body = {:custom_poster_frame => file}
-        end
+
+        body = { field_name => file }.merge(options.dup)
 
         begin
           resp = RestClient.send(
@@ -44,7 +40,7 @@ module Sproutvideo
           resp = e.response
         end
       end
-      
+
       Response.new(resp)
     end
 
