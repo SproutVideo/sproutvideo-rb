@@ -31,12 +31,27 @@ module Sproutvideo
     end
 
     def self.engagement(options={})
-      url = build_path("/stats/engagement", options)
+      if options.include?(:live_stream)
+        options.delete(:live_stream)
+        url = "/stats/live_streams/engagement"
+      else
+        url = build_path("/stats/engagement", options)
+      end
       get(url, options)
     end
 
-    def self.engagement_sessions(video_id, options={})
-      url = "/stats/engagement/#{video_id}/sessions"
+    def self.engagement_sessions(options={})
+      url = "/stats/engagement/sessions"
+      if options.include?(:live_stream)
+        options.delete(:live_stream)
+        url = "/stats/live_streams/engagement/sessions"
+      elsif options.include?(:video_id)
+        url = "/stats/engagement/#{options[:video_id]}/sessions"
+        options.delete(:video_id)
+      elsif options.include?(:live_stream_id)
+        url = "/stats/live_streams/#{options[:live_stream_id]}/engagement/sessions"
+        options.delete(:live_stream_id)
+      end
       get(url, options)
     end
 

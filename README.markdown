@@ -475,21 +475,46 @@ You can grab the total number of seconds of your videos that have been watched l
 Sproutvideo::Analytics.engagement
 ```
 
+and for all livestreams:
+```ruby
+Sproutvideo::Analytics.engagement(live_stream: true)
+```
+
 You can grab engagement for a specific video like so:
 ```ruby
 Sproutvideo::Analytics.engagement(:video_id => 'abc123')
 ```
 
+or for a specific live stream:
+```ruby
+Sproutvideo::Analytics.engagement(:live_stream_id => 'abc123')
+```
+
+You can grab playback sessions data for your videos with:
+```ruby
+Sproutvideo::Analytics.engagement_sessions()
+```
+
+and for live streams with
+```ruby
+Sproutvideo::Analytics.engagement_sessions(live_stream: true)
+```
+
 Lastly, you can grab every single playback session for a video like this:
 ```ruby
-Sproutvideo::Analytics.engagement_sessions('abc123')
-Sproutvideo::Analytics.engagement_sessions('abc123', :page => 3)
-Sproutvideo::Analytics.engagement_sessions('abc123', :page => 3, :per_page => 40)
+Sproutvideo::Analytics.engagement_sessions(video_id: 'abc123')
+Sproutvideo::Analytics.engagement_sessions(video_id: 'abc123', page: 3)
+Sproutvideo::Analytics.engagement_sessions(video_id: 'abc123', page: 3, :per_page => 40)
+```
+
+and for a live stream:
+```ruby
+Sproutvideo::Analytics.engagement_sessions(live_stream_id: 'abc123')
 ```
 
 You can also grab engagement sessions for a video for a specific email address like so:
 ```ruby
-Sproutvideo::Analytics.engagement_sessions('abc123', :vemail => 'test@example.com')
+Sproutvideo::Analytics.engagement_sessions(video_id: 'abc123', vemail: 'test@example.com')
 ```
 
 # Account
