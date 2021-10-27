@@ -538,7 +538,7 @@ Pass in the id of the subtitle you wish to delete.
 Sproutvideo::Subtitle.destroy(:video_id => 'abc123', id: 'fdc432')
 ```
 
-# Subtitles
+# Calls to Action
 The following methods are available: `list`, `create`, `details`, `update`, `destroy`. All requests for a call to action must be given a `video_id` option indicating the video that you want to access or update the calls to action of.
 
 ## list
@@ -585,6 +585,49 @@ Pass in the id of the call to action you wish to delete.
 
 ```ruby
 Sproutvideo::CallToAction.destroy(:video_id => 'abc123', id: 'fdc432')
+```
+
+# Live Streams
+The following methods are available: `list`, `create`, `details`, `update`, `destroy`, and `end_stream`.
+
+## list
+By default the call to action listing is paginated with 25 tags per page and sorted by created at date in ascending order. You can pass two parameters to control the paging: page and per_page.
+
+```ruby
+Sproutvideo::LiveStream.list()
+Sproutvideo::LiveStream.list(:per_page => 10, :page => 2)
+```
+
+## create
+
+```ruby
+Sproutvideo::LiveStream.create(:title: 'hello')
+```
+
+## details
+
+```ruby
+Sproutvideo::LiveStream.details('abc123')
+```
+
+## update
+You can change the optional parameters
+
+```ruby
+Sproutvideo::LiveStream.update(
+  :title => 'get it done!',
+```
+
+## destroy
+
+```ruby
+Sproutvideo::LiveStream.destroy('abc123')
+```
+
+## end_stream
+
+```ruby
+Sproutvideo::LiveStream.end_stream('abc123')
 ```
 
 # Contributing to sproutvideo-rb
