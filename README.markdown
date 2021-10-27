@@ -462,7 +462,7 @@ Sproutvideo::Analytics.geo(:video_id => 'abc123', :country => 'US')
 see api docs for more info
 
 ```ruby
-Sproutvideo::Analytics.popular_videos()
+Sproutvideo::Analytics.popular_videos
 ```
 
 ```ruby
@@ -492,7 +492,7 @@ Sproutvideo::Analytics.engagement(:live_stream_id => 'abc123')
 
 You can grab playback sessions data for your videos with:
 ```ruby
-Sproutvideo::Analytics.engagement_sessions()
+Sproutvideo::Analytics.engagement_sessions
 ```
 
 and for live streams with
@@ -637,7 +637,7 @@ The following methods are available: `list`, `create`, `details`, `update`, `des
 By default the call to action listing is paginated with 25 tags per page and sorted by created at date in ascending order. You can pass two parameters to control the paging: page and per_page.
 
 ```ruby
-Sproutvideo::LiveStream.list()
+Sproutvideo::LiveStream.list
 Sproutvideo::LiveStream.list(:per_page => 10, :page => 2)
 ```
 
