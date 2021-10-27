@@ -453,9 +453,20 @@ Sproutvideo::Analytics.play_counts(:start_date => '2013-01-01')
 Sproutvideo::Analytics.device_types(:video_id => 'abc123', :end_date => '2012-12-31')
 ```
 
-Lastly, the geo method can take an optional :country to retrieve playback data by city within that country
+The geo method can take an optional :country to retrieve playback data by city within that country
 ```ruby
 Sproutvideo::Analytics.geo(:video_id => 'abc123', :country => 'US')
+```
+
+## Misc endpoints
+see api docs for more info
+
+```ruby
+Sproutvideo::Analytics.popular_videos()
+```
+
+```ruby
+Sproutvideo::Analytics.live_stream_overview('abc123')
 ```
 
 # Engagement

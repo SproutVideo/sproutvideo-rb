@@ -40,12 +40,25 @@ module Sproutvideo
       get(url, options)
     end
 
+    def self.popular_videos(options={})
+      get("/stats/popular_videos", options)
+    end
+
+    def self.live_stream_overview(live_stream_id, options={})
+      get("/stats/live_streams/#{live_stream_id}/overview", options)
+    end
+
     private
 
     def self.build_path(path, options)
       if options.include?(:video_id)
         video_id = options.delete(:video_id)
         path += "/#{video_id}"
+      end
+      if options.include?(:live_stream_id)
+        video_id = options.delete(:live_stream_id)
+        resource = path.split('/').last
+        path = "/stats/live_streams/#{video_id}/#{resource}"
       end
       path
     end

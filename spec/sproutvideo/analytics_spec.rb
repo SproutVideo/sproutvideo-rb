@@ -12,7 +12,7 @@ describe Sproutvideo::Analytics do
       @url = "#{Sproutvideo.base_url}/stats/counts"
     end
 
-    it "should GET the correct url for overall method call and return a response" do      
+    it "should GET the correct url for overall method call and return a response" do
       RestClient.should_receive(:get).with(
         @url,
         {'SproutVideo-Api-Key' => @api_key, :params => {}}).and_return(@msg)
@@ -23,6 +23,12 @@ describe Sproutvideo::Analytics do
         "#{@url}/abc123",
         {'SproutVideo-Api-Key' => @api_key, :params => {}}).and_return(@msg)
       Sproutvideo::Analytics.play_counts(:video_id => 'abc123').class.should == Sproutvideo::Response
+    end
+    it "should GET the correct url for individual live stream method call and return a response" do
+      RestClient.should_receive(:get).with(
+        "#{Sproutvideo.base_url}/stats/live_streams/abc123/counts",
+        {'SproutVideo-Api-Key' => @api_key, :params => {}}).and_return(@msg)
+      Sproutvideo::Analytics.play_counts(:live_stream_id => 'abc123').class.should == Sproutvideo::Response
     end
     it "should GET the correct url if dates are passed in" do
       RestClient.should_receive(:get).with(
@@ -37,7 +43,7 @@ describe Sproutvideo::Analytics do
       @url = "#{Sproutvideo.base_url}/stats/domains"
     end
 
-    it "should GET the correct url for overall method call and return a response" do      
+    it "should GET the correct url for overall method call and return a response" do
       RestClient.should_receive(:get).with(
         @url,
         {'SproutVideo-Api-Key' => @api_key, :params => {}}).and_return(@msg)
@@ -48,6 +54,12 @@ describe Sproutvideo::Analytics do
         "#{@url}/abc123",
         {'SproutVideo-Api-Key' => @api_key, :params => {}}).and_return(@msg)
       Sproutvideo::Analytics.domains(:video_id => 'abc123').class.should == Sproutvideo::Response
+    end
+    it "should GET the correct url for individual live stream method call and return a response" do
+      RestClient.should_receive(:get).with(
+        "#{Sproutvideo.base_url}/stats/live_streams/abc123/device_types",
+        {'SproutVideo-Api-Key' => @api_key, :params => {}}).and_return(@msg)
+      Sproutvideo::Analytics.device_types(:live_stream_id => 'abc123').class.should == Sproutvideo::Response
     end
     it "should GET the correct url if dates are passed in" do
       RestClient.should_receive(:get).with(
@@ -62,7 +74,7 @@ describe Sproutvideo::Analytics do
       @url = "#{Sproutvideo.base_url}/stats/geo"
     end
 
-    it "should GET the correct url for overall method call and return a response" do      
+    it "should GET the correct url for overall method call and return a response" do
       RestClient.should_receive(:get).with(
         @url,
         {'SproutVideo-Api-Key' => @api_key, :params => {}}).and_return(@msg)
@@ -73,6 +85,12 @@ describe Sproutvideo::Analytics do
         "#{@url}/abc123",
         {'SproutVideo-Api-Key' => @api_key, :params => {}}).and_return(@msg)
       Sproutvideo::Analytics.geo(:video_id => 'abc123').class.should == Sproutvideo::Response
+    end
+    it "should GET the correct url for individual live stream method call and return a response" do
+      RestClient.should_receive(:get).with(
+        "#{Sproutvideo.base_url}/stats/live_streams/abc123/geo",
+        {'SproutVideo-Api-Key' => @api_key, :params => {}}).and_return(@msg)
+      Sproutvideo::Analytics.geo(:live_stream_id => 'abc123').class.should == Sproutvideo::Response
     end
     it "should GET the correct url if dates are passed in" do
       RestClient.should_receive(:get).with(
@@ -93,7 +111,7 @@ describe Sproutvideo::Analytics do
       @url = "#{Sproutvideo.base_url}/stats/video_types"
     end
 
-    it "should GET the correct url for overall method call and return a response" do      
+    it "should GET the correct url for overall method call and return a response" do
       RestClient.should_receive(:get).with(
         @url,
         {'SproutVideo-Api-Key' => @api_key, :params => {}}).and_return(@msg)
@@ -118,7 +136,7 @@ describe Sproutvideo::Analytics do
       @url = "#{Sproutvideo.base_url}/stats/playback_types"
     end
 
-    it "should GET the correct url for overall method call and return a response" do      
+    it "should GET the correct url for overall method call and return a response" do
       RestClient.should_receive(:get).with(
         @url,
         {'SproutVideo-Api-Key' => @api_key, :params => {}}).and_return(@msg)
@@ -143,7 +161,7 @@ describe Sproutvideo::Analytics do
       @url = "#{Sproutvideo.base_url}/stats/device_types"
     end
 
-    it "should GET the correct url for overall method call and return a response" do      
+    it "should GET the correct url for overall method call and return a response" do
       RestClient.should_receive(:get).with(
         @url,
         {'SproutVideo-Api-Key' => @api_key, :params => {}}).and_return(@msg)
@@ -168,7 +186,7 @@ describe Sproutvideo::Analytics do
       @url = "#{Sproutvideo.base_url}/stats/engagement"
     end
 
-    it "should GET the correct url for overall method call and return a response" do      
+    it "should GET the correct url for overall method call and return a response" do
       RestClient.should_receive(:get).with(
         @url,
         {'SproutVideo-Api-Key' => @api_key, :params => {}}).and_return(@msg)
@@ -186,7 +204,7 @@ describe Sproutvideo::Analytics do
     before(:each) do
       @url = "#{Sproutvideo.base_url}/stats/engagement/abc123/sessions"
     end
-    it "should GET the correct url for overall method call and return a response" do      
+    it "should GET the correct url for overall method call and return a response" do
       RestClient.should_receive(:get).with(
         @url,
         {'SproutVideo-Api-Key' => @api_key, :params => {}}).and_return(@msg)
@@ -201,5 +219,22 @@ describe Sproutvideo::Analytics do
     end
   end
 
+  describe "#popular_videos" do
+    it "should GET the correct url for overall method call and return a response" do
+      RestClient.should_receive(:get).with(
+        "#{Sproutvideo.base_url}/stats/popular_videos",
+        {'SproutVideo-Api-Key' => @api_key, :params => {}}).and_return(@msg)
+      Sproutvideo::Analytics.popular_videos.class.should == Sproutvideo::Response
+    end
+  end
 
+  describe "#live_stream_overview" do
+    it "should GET the correct url for overall method call and return a response" do
+      id = "abc123"
+      RestClient.should_receive(:get).with(
+        "#{Sproutvideo.base_url}/stats/live_streams/#{id}/overview",
+        {'SproutVideo-Api-Key' => @api_key, :params => {}}).and_return(@msg)
+      Sproutvideo::Analytics.live_stream_overview(id)
+    end
+  end
 end
