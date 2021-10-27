@@ -644,7 +644,9 @@ Sproutvideo::LiveStream.list(:per_page => 10, :page => 2)
 ## create
 
 ```ruby
-Sproutvideo::LiveStream.create(:title: 'hello')
+Sproutvideo::LiveStream.create(title: 'hello')
+# with a posterframe
+Sproutvideo::LiveStream.create(title: 'hello', '/path/to/posterframe.jpg')
 ```
 
 ## details
@@ -657,8 +659,9 @@ Sproutvideo::LiveStream.details('abc123')
 You can change the optional parameters
 
 ```ruby
-Sproutvideo::LiveStream.update(
-  :title => 'get it done!',
+Sproutvideo::LiveStream.update(title: 'get it done!')
+# with a posterframe
+Sproutvideo::LiveStream.update(title: 'hello', '/path/to/posterframe.jpg')
 ```
 
 ## destroy

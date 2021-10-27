@@ -17,6 +17,24 @@ describe Sproutvideo::LiveStream do
 
 			Sproutvideo::LiveStream.create(data).class.should == Sproutvideo::Response
 		end
+
+   	it "should POST the correct url with file and return a response" do
+			File.open("upload_test", "w+") do |f|
+				f.syswrite("upload!")
+			end
+
+			file = File.open('upload_test')
+
+			File.stub!(:open).with('upload_test').and_yield(file)
+
+			RestClient.should_receive(:post).with(
+				"#{Sproutvideo.base_url}/live_streams",
+				{:custom_poster_frame => file, :title => 'test title'},
+				{'SproutVideo-Api-Key' => @api_key, :timeout => 18000}).and_return(@msg)
+			Sproutvideo::LiveStream.create({:title => 'test title'}, 'upload_test').class.should == Sproutvideo::Response
+
+			FileUtils.rm('upload_test')
+		end
 	end
 
 	describe "#list" do
@@ -84,6 +102,23 @@ describe Sproutvideo::LiveStream do
 			Sproutvideo::LiveStream.update(@live_stream_id, data).class.should == Sproutvideo::Response
 		end
 
+   	it "should PUT the correct url and return a response" do
+			File.open("upload_test2", "w+") do |f|
+				f.syswrite("upload!")
+			end
+
+			file = File.open('upload_test2')
+
+			File.stub!(:open).with('upload_test2').and_yield(file)
+
+			RestClient.should_receive(:put).with(
+				"#{Sproutvideo.base_url}/live_streams/#{@live_stream_id}",
+				{:custom_poster_frame => file, :title => 'test title'},
+				{'SproutVideo-Api-Key' => @api_key, :timeout => 18000}).and_return(@msg)
+			Sproutvideo::LiveStream.update(@live_stream_id, {:title => 'test title'}, 'upload_test2').class.should == Sproutvideo::Response
+
+			FileUtils.rm('upload_test2')
+		end
 	end
 
 	describe "#delete" do

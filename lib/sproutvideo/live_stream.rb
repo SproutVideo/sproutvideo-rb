@@ -5,7 +5,7 @@ module Sproutvideo
       if file_path.empty?
         post("/live_streams", options)
       else
-        upload("/live_streams", file_path, options, 'custom_poster_frame')
+        upload("/live_streams", file_path, options, :custom_poster_frame)
       end
     end
 
@@ -22,8 +22,12 @@ module Sproutvideo
       get("/live_streams/#{live_stream_id}", options)
     end
 
-    def self.update(live_stream_id, options={})
-      put("/live_streams/#{live_stream_id}", options)
+    def self.update(live_stream_id, options={}, file_path='')
+      if file_path.empty?
+        put("/live_streams/#{live_stream_id}", options)
+      else
+        upload("/live_streams/#{live_stream_id}", file_path, options.merge({method: :PUT}), :custom_poster_frame)
+      end
     end
 
     def self.destroy(live_stream_id, options={})
