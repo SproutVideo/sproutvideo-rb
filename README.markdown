@@ -440,6 +440,13 @@ Sproutvideo::Analytics.video_types(:video_id => 'abc123')
 Sproutvideo::Analytics.playback_types(:video_id => 'abc123')
 Sproutvideo::Analytics.device_types(:video_id => 'abc123')
 ```
+The following methods can also take an options hash containing a :live_stream_id for retrieving overall data for a specific live_stream:
+```ruby
+Sproutvideo::Analytics.play_counts(:live_stream_id => 'abc123')
+Sproutvideo::Analytics.domains(:live_stream_id => 'abc123')
+Sproutvideo::Analytics.geo(:live_stream_id => 'abc123')
+Sproutvideo::Analytics.device_types(:live_stream_id => 'abc123')
+```
 Each method can also take an optional :start_date and :end_date to specify a date range for the returned data:
 ```ruby
 Sproutvideo::Analytics.play_counts(:start_date => '2013-01-01')

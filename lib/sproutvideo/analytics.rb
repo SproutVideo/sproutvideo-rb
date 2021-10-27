@@ -1,66 +1,37 @@
 module Sproutvideo
   class Analytics < Resource
-    
     def self.play_counts(options={})
-      url = "/stats/counts"
-      if options.include?(:video_id)
-        video_id = options.delete(:video_id)
-        url += "/#{video_id}"
-      end
+      url = build_path("/stats/counts", options)
       get(url, options)
     end
 
     def self.domains(options={})
-      url = "/stats/domains"
-      if options.include?(:video_id)
-        video_id = options.delete(:video_id)
-        url += "/#{video_id}"
-      end
+      url = build_path("/stats/domains", options)
       get(url, options)
     end
 
     def self.geo(options={})
-      url = "/stats/geo"
-      if options.include?(:video_id)
-        video_id = options.delete(:video_id)
-        url += "/#{video_id}"
-      end
+      url = build_path("/stats/geo", options)
       get(url, options)
     end
 
     def self.video_types(options={})
-      url = "/stats/video_types"
-      if options.include?(:video_id)
-        video_id = options.delete(:video_id)
-        url += "/#{video_id}"
-      end
+      url = build_path("/stats/video_types", options)
       get(url, options)
     end
 
     def self.playback_types(options={})
-      url = "/stats/playback_types"
-      if options.include?(:video_id)
-        video_id = options.delete(:video_id)
-        url += "/#{video_id}"
-      end
+      url = build_path("/stats/playback_types", options)
       get(url, options)
     end
 
     def self.device_types(options={})
-      url = "/stats/device_types"
-      if options.include?(:video_id)
-        video_id = options.delete(:video_id)
-        url += "/#{video_id}"
-      end
+      url = build_path("/stats/device_types", options)
       get(url, options)
     end
 
     def self.engagement(options={})
-      url = "/stats/engagement"
-      if options.include?(:video_id)
-        video_id = options.delete(:video_id)
-        url += "/#{video_id}"
-      end
+      url = build_path("/stats/engagement", options)
       get(url, options)
     end
 
@@ -69,5 +40,14 @@ module Sproutvideo
       get(url, options)
     end
 
+    private
+
+    def self.build_path(path, options)
+      if options.include?(:video_id)
+        video_id = options.delete(:video_id)
+        path += "/#{video_id}"
+      end
+      path
+    end
   end
 end
