@@ -1,11 +1,12 @@
 module Sproutvideo
   class LiveStream < Resource
 
-    def self.create(options={}, file_path='')
-      if file_path.empty?
-        post("/live_streams", options)
+    def self.create(options={})
+      if options.include?(:custom_poster_frame)
+        poster_frame = options.delete(:custom_poster_frame)
+        upload("/live_streams", poster_frame, options, :custom_poster_frame)
       else
-        upload("/live_streams", file_path, options, :custom_poster_frame)
+        post("/live_streams", options)
       end
     end
 
@@ -22,11 +23,12 @@ module Sproutvideo
       get("/live_streams/#{live_stream_id}", options)
     end
 
-    def self.update(live_stream_id, options={}, file_path='')
-      if file_path.empty?
-        put("/live_streams/#{live_stream_id}", options)
+    def self.update(live_stream_id, options={})
+      if options.include?(:custom_poster_frame)
+        poster_frame = options.delete(:custom_poster_frame)
+        upload("/live_streams/#{live_stream_id}", poster_frame, options.merge({method: :PUT}), :custom_poster_frame)
       else
-        upload("/live_streams/#{live_stream_id}", file_path, options.merge({method: :PUT}), :custom_poster_frame)
+        put("/live_streams/#{live_stream_id}", options)
       end
     end
 

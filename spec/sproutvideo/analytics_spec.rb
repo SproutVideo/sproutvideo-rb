@@ -198,17 +198,20 @@ describe Sproutvideo::Analytics do
         {'SproutVideo-Api-Key' => @api_key, :params => {}}).and_return(@msg)
       Sproutvideo::Analytics.engagement(:video_id => 'abc123').class.should == Sproutvideo::Response
     end
+  end
+
+  describe "#live_stream_engagment" do
     it "should GET the correct url for live streams method call and return a response" do
       RestClient.should_receive(:get).with(
         "#{Sproutvideo.base_url}/stats/live_streams/engagement",
         {'SproutVideo-Api-Key' => @api_key, :params => {}}).and_return(@msg)
-      Sproutvideo::Analytics.engagement(live_stream: true).class.should == Sproutvideo::Response
+      Sproutvideo::Analytics.live_stream_engagement.class.should == Sproutvideo::Response
     end
     it "should GET the correct url for individual live stream method call and return a response" do
       RestClient.should_receive(:get).with(
         "#{Sproutvideo.base_url}/stats/live_streams/abc123/engagement",
         {'SproutVideo-Api-Key' => @api_key, :params => {}}).and_return(@msg)
-      Sproutvideo::Analytics.engagement(:live_stream_id => 'abc123').class.should == Sproutvideo::Response
+      Sproutvideo::Analytics.live_stream_engagement(:live_stream_id => 'abc123').class.should == Sproutvideo::Response
     end
   end
 
@@ -221,35 +224,41 @@ describe Sproutvideo::Analytics do
       RestClient.should_receive(:get).with(
         "#{Sproutvideo.base_url}/stats/engagement/sessions",
         {'SproutVideo-Api-Key' => @api_key, :params => {}}).and_return(@msg)
-      Sproutvideo::Analytics.engagement_sessions().class.should == Sproutvideo::Response
+      Sproutvideo::Analytics.engagement_sessions.class.should == Sproutvideo::Response
     end
 
     it "should use pagination params" do
       RestClient.should_receive(:get).with(
         "#{Sproutvideo.base_url}/stats/engagement/sessions",
         {'SproutVideo-Api-Key' => @api_key, :params => {:page => 2, :per_page => 5}}).and_return(@msg)
-      Sproutvideo::Analytics.engagement_sessions(:page => 2, :per_page => 5)
+      Sproutvideo::Analytics.engagement_sessions(nil, :page => 2, :per_page => 5)
     end
 
     it "should GET the correct url for video specific method call and return a response" do
       RestClient.should_receive(:get).with(
         "#{Sproutvideo.base_url}/stats/engagement/#{@id}/sessions",
         {'SproutVideo-Api-Key' => @api_key, :params => {}}).and_return(@msg)
-      Sproutvideo::Analytics.engagement_sessions(video_id: @id).class.should == Sproutvideo::Response
+      Sproutvideo::Analytics.engagement_sessions(@id).class.should == Sproutvideo::Response
     end
+  end
 
-    it "should GET the correct url for livestream specific method call and return a response" do
-      RestClient.should_receive(:get).with(
-        "#{Sproutvideo.base_url}/stats/live_streams/#{@id}/engagement/sessions",
-        {'SproutVideo-Api-Key' => @api_key, :params => {}}).and_return(@msg)
-      Sproutvideo::Analytics.engagement_sessions(live_stream_id: @id).class.should == Sproutvideo::Response
+  describe "#live_stream_engagement_sessions" do
+    before(:each) do
+      @id = "abc123"
     end
 
     it "should GET the correct url for overall live stream method call and return a response" do
       RestClient.should_receive(:get).with(
         "#{Sproutvideo.base_url}/stats/live_streams/engagement/sessions",
         {'SproutVideo-Api-Key' => @api_key, :params => {}}).and_return(@msg)
-      Sproutvideo::Analytics.engagement_sessions(live_stream: true).class.should == Sproutvideo::Response
+      Sproutvideo::Analytics.live_stream_engagement_sessions.class.should == Sproutvideo::Response
+    end
+
+    it "should GET the correct url for livestream specific method call and return a response" do
+      RestClient.should_receive(:get).with(
+        "#{Sproutvideo.base_url}/stats/live_streams/#{@id}/engagement/sessions",
+        {'SproutVideo-Api-Key' => @api_key, :params => {}}).and_return(@msg)
+      Sproutvideo::Analytics.live_stream_engagement_sessions(@id).class.should == Sproutvideo::Response
     end
   end
 

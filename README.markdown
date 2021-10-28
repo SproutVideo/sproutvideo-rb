@@ -477,7 +477,7 @@ Sproutvideo::Analytics.engagement
 
 and for all livestreams:
 ```ruby
-Sproutvideo::Analytics.engagement(live_stream: true)
+Sproutvideo::Analytics.live_stream_engagement
 ```
 
 You can grab engagement for a specific video like so:
@@ -487,7 +487,7 @@ Sproutvideo::Analytics.engagement(:video_id => 'abc123')
 
 or for a specific live stream:
 ```ruby
-Sproutvideo::Analytics.engagement(:live_stream_id => 'abc123')
+Sproutvideo::Analytics.live_stream_engagement(:live_stream_id => 'abc123')
 ```
 
 You can grab playback sessions data for your videos with:
@@ -497,19 +497,19 @@ Sproutvideo::Analytics.engagement_sessions
 
 and for live streams with
 ```ruby
-Sproutvideo::Analytics.engagement_sessions(live_stream: true)
+Sproutvideo::Analytics.live_stream_engagement_sessions
 ```
 
 Lastly, you can grab every single playback session for a video like this:
 ```ruby
-Sproutvideo::Analytics.engagement_sessions(video_id: 'abc123')
-Sproutvideo::Analytics.engagement_sessions(video_id: 'abc123', page: 3)
-Sproutvideo::Analytics.engagement_sessions(video_id: 'abc123', page: 3, :per_page => 40)
+Sproutvideo::Analytics.engagement_sessions('abc123')
+Sproutvideo::Analytics.engagement_sessions('abc123', page: 3)
+Sproutvideo::Analytics.engagement_sessions('abc123', page: 3, :per_page => 40)
 ```
 
 and for a live stream:
 ```ruby
-Sproutvideo::Analytics.engagement_sessions(live_stream_id: 'abc123')
+Sproutvideo::Analytics.live_stream_engagement_sessions('abc123')
 ```
 
 You can also grab engagement sessions for a video for a specific email address like so:
@@ -646,7 +646,7 @@ Sproutvideo::LiveStream.list(:per_page => 10, :page => 2)
 ```ruby
 Sproutvideo::LiveStream.create(title: 'hello')
 # with a posterframe
-Sproutvideo::LiveStream.create(title: 'hello', '/path/to/posterframe.jpg')
+Sproutvideo::LiveStream.create(title: 'hello', custom_poster_frame: '/path/to/posterframe.jpg')
 ```
 
 ## details
@@ -661,7 +661,7 @@ You can change the optional parameters
 ```ruby
 Sproutvideo::LiveStream.update(title: 'get it done!')
 # with a posterframe
-Sproutvideo::LiveStream.update(title: 'hello', '/path/to/posterframe.jpg')
+Sproutvideo::LiveStream.update(title: 'hello', custom_poser_frame: '/path/to/posterframe.jpg')
 ```
 
 ## destroy

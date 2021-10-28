@@ -31,7 +31,7 @@ describe Sproutvideo::LiveStream do
         "#{Sproutvideo.base_url}/live_streams",
         {:custom_poster_frame => file, :title => 'test title'},
         {'SproutVideo-Api-Key' => @api_key, :timeout => 18000}).and_return(@msg)
-      Sproutvideo::LiveStream.create({:title => 'test title'}, 'upload_test').class.should == Sproutvideo::Response
+      Sproutvideo::LiveStream.create({:title => 'test title', :custom_poster_frame => 'upload_test' }).class.should == Sproutvideo::Response
 
       FileUtils.rm('upload_test')
     end
@@ -115,7 +115,7 @@ describe Sproutvideo::LiveStream do
         "#{Sproutvideo.base_url}/live_streams/#{@live_stream_id}",
         {:custom_poster_frame => file, :title => 'test title'},
         {'SproutVideo-Api-Key' => @api_key, :timeout => 18000}).and_return(@msg)
-      Sproutvideo::LiveStream.update(@live_stream_id, {:title => 'test title'}, 'upload_test2').class.should == Sproutvideo::Response
+      Sproutvideo::LiveStream.update(@live_stream_id, {:title => 'test title', :custom_poster_frame => 'upload_test2' }).class.should == Sproutvideo::Response
 
       FileUtils.rm('upload_test2')
     end
