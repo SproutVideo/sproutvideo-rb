@@ -440,15 +440,33 @@ Sproutvideo::Analytics.video_types(:video_id => 'abc123')
 Sproutvideo::Analytics.playback_types(:video_id => 'abc123')
 Sproutvideo::Analytics.device_types(:video_id => 'abc123')
 ```
+The following methods can also take an options hash containing a :live_stream_id for retrieving overall data for a specific live_stream:
+```ruby
+Sproutvideo::Analytics.play_counts(:live_stream_id => 'abc123')
+Sproutvideo::Analytics.domains(:live_stream_id => 'abc123')
+Sproutvideo::Analytics.geo(:live_stream_id => 'abc123')
+Sproutvideo::Analytics.device_types(:live_stream_id => 'abc123')
+```
 Each method can also take an optional :start_date and :end_date to specify a date range for the returned data:
 ```ruby
 Sproutvideo::Analytics.play_counts(:start_date => '2013-01-01')
 Sproutvideo::Analytics.device_types(:video_id => 'abc123', :end_date => '2012-12-31')
 ```
 
-Lastly, the geo method can take an optional :country to retrieve playback data by city within that country
+The geo method can take an optional :country to retrieve playback data by city within that country
 ```ruby
 Sproutvideo::Analytics.geo(:video_id => 'abc123', :country => 'US')
+```
+
+## Misc endpoints
+see api docs for more info
+
+```ruby
+Sproutvideo::Analytics.popular_videos
+```
+
+```ruby
+Sproutvideo::Analytics.live_stream_overview('abc123')
 ```
 
 # Engagement
@@ -457,21 +475,46 @@ You can grab the total number of seconds of your videos that have been watched l
 Sproutvideo::Analytics.engagement
 ```
 
+and for all livestreams:
+```ruby
+Sproutvideo::Analytics.live_stream_engagement
+```
+
 You can grab engagement for a specific video like so:
 ```ruby
 Sproutvideo::Analytics.engagement(:video_id => 'abc123')
 ```
 
+or for a specific live stream:
+```ruby
+Sproutvideo::Analytics.live_stream_engagement(:live_stream_id => 'abc123')
+```
+
+You can grab playback sessions data for your videos with:
+```ruby
+Sproutvideo::Analytics.engagement_sessions
+```
+
+and for live streams with
+```ruby
+Sproutvideo::Analytics.live_stream_engagement_sessions
+```
+
 Lastly, you can grab every single playback session for a video like this:
 ```ruby
 Sproutvideo::Analytics.engagement_sessions('abc123')
-Sproutvideo::Analytics.engagement_sessions('abc123', :page => 3)
-Sproutvideo::Analytics.engagement_sessions('abc123', :page => 3, :per_page => 40)
+Sproutvideo::Analytics.engagement_sessions('abc123', page: 3)
+Sproutvideo::Analytics.engagement_sessions('abc123', page: 3, :per_page => 40)
+```
+
+and for a live stream:
+```ruby
+Sproutvideo::Analytics.live_stream_engagement_sessions('abc123')
 ```
 
 You can also grab engagement sessions for a video for a specific email address like so:
 ```ruby
-Sproutvideo::Analytics.engagement_sessions('abc123', :vemail => 'test@example.com')
+Sproutvideo::Analytics.engagement_sessions(video_id: 'abc123', vemail: 'test@example.com')
 ```
 
 # Account
@@ -538,7 +581,7 @@ Pass in the id of the subtitle you wish to delete.
 Sproutvideo::Subtitle.destroy(:video_id => 'abc123', id: 'fdc432')
 ```
 
-# Subtitles
+# Calls to Action
 The following methods are available: `list`, `create`, `details`, `update`, `destroy`. All requests for a call to action must be given a `video_id` option indicating the video that you want to access or update the calls to action of.
 
 ## list
@@ -585,6 +628,52 @@ Pass in the id of the call to action you wish to delete.
 
 ```ruby
 Sproutvideo::CallToAction.destroy(:video_id => 'abc123', id: 'fdc432')
+```
+
+# Live Streams
+The following methods are available: `list`, `create`, `details`, `update`, `destroy`, and `end_stream`.
+
+## list
+By default the call to action listing is paginated with 25 tags per page and sorted by created at date in ascending order. You can pass two parameters to control the paging: page and per_page.
+
+```ruby
+Sproutvideo::LiveStream.list
+Sproutvideo::LiveStream.list(:per_page => 10, :page => 2)
+```
+
+## create
+
+```ruby
+Sproutvideo::LiveStream.create(title: 'hello')
+# with a posterframe
+Sproutvideo::LiveStream.create(title: 'hello', custom_poster_frame: '/path/to/posterframe.jpg')
+```
+
+## details
+
+```ruby
+Sproutvideo::LiveStream.details('abc123')
+```
+
+## update
+You can change the optional parameters
+
+```ruby
+Sproutvideo::LiveStream.update(title: 'get it done!')
+# with a posterframe
+Sproutvideo::LiveStream.update(title: 'hello', custom_poser_frame: '/path/to/posterframe.jpg')
+```
+
+## destroy
+
+```ruby
+Sproutvideo::LiveStream.destroy('abc123')
+```
+
+## end_stream
+
+```ruby
+Sproutvideo::LiveStream.end_stream('abc123')
 ```
 
 # Contributing to sproutvideo-rb

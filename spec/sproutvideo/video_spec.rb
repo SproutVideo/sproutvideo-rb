@@ -46,7 +46,7 @@ describe Sproutvideo::Video do
 				{:source_video => file},
 				{'SproutVideo-Api-Key' => @api_key, :timeout => 18000}).and_return(@msg)
 
-			Sproutvideo::Video.replace('asdf','upload_test').class.should == Sproutvideo::Response
+			Sproutvideo::Video.replace('asdf', 'upload_test').class.should == Sproutvideo::Response
 
 			FileUtils.rm('upload_test')
 		end
