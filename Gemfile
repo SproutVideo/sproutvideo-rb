@@ -1,7 +1,7 @@
 source "http://rubygems.org"
 
 gem "rest-client", '~> 1.8.0'
-gem 'json', '~> 1.8.6'
+gem 'json', '~> 2.3.0'
 gem "multi_json"
 
 group :development do
