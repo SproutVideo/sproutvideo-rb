@@ -425,6 +425,7 @@ Check the API documentation for more information about the data returned by thes
 Each method can be called on it's own for overall account data for all time like this:
 ```ruby
 Sproutvideo::Analytics.play_counts
+Sproutvideo::Analytics.download_counts
 Sproutvideo::Analytics.domains
 Sproutvideo::Analytics.geo
 Sproutvideo::Analytics.video_types
@@ -434,6 +435,7 @@ Sproutvideo::Analytics.device_types
 Each method can also take an options hash containing a :video_id for retrieving overall data for a specific video:
 ```ruby
 Sproutvideo::Analytics.play_counts(:video_id => 'abc123')
+Sproutvideo::Analytics.download_counts(:video_id => 'abc123')
 Sproutvideo::Analytics.domains(:video_id => 'abc123')
 Sproutvideo::Analytics.geo(:video_id => 'abc123')
 Sproutvideo::Analytics.video_types(:video_id => 'abc123')
@@ -463,6 +465,7 @@ see api docs for more info
 
 ```ruby
 Sproutvideo::Analytics.popular_videos
+SproutVideo::Analytics.popular_downloads
 ```
 
 ```ruby

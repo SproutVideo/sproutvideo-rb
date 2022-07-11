@@ -5,6 +5,11 @@ module Sproutvideo
       get(url, options)
     end
 
+    def self.download_counts(options ={})
+      url = build_path("/stats/downloads", options)
+      get(url, options)
+    end
+
     def self.domains(options={})
       url = build_path("/stats/domains", options)
       get(url, options)
@@ -64,6 +69,10 @@ module Sproutvideo
 
     def self.popular_videos(options={})
       get("/stats/popular_videos", options)
+    end
+
+    def self.popular_downloads(options={})
+      get('/stats/popular_downloads', options)
     end
 
     def self.live_stream_overview(live_stream_id, options={})

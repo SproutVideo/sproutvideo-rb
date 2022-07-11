@@ -1,11 +1,11 @@
 Gem::Specification.new do |s|
   s.name = "sproutvideo-rb"
-  s.version = "1.8.0"
+  s.version = "1.9.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
   s.authors = ["SproutVideo"]
-  s.date = "2020-10-28"
+  s.date = "2022-07-11"
   s.description = "SproutVideo API Client"
   s.email = "support@sproutvideo.com"
   s.extra_rdoc_files = [
@@ -57,7 +57,6 @@ Gem::Specification.new do |s|
   ]
   s.homepage = "http://github.com/SproutVideo/sproutvideo-rb"
   s.licenses = ["MIT"]
-  s.rubygems_version = "2.4.2"
   s.summary = "SproutVideo API Client"
 
   if s.respond_to? :specification_version then

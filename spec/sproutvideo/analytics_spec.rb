@@ -38,6 +38,33 @@ describe Sproutvideo::Analytics do
     end
   end
 
+  describe '#download_counts' do
+    before(:each) do
+      @url = "#{Sproutvideo.base_url}/stats/downloads"
+    end
+
+    it "should GET the correct url for overall method call and return a response" do
+      RestClient.should_receive(:get).with(
+        @url,
+        {'SproutVideo-Api-Key' => @api_key, :params => {}}).and_return(@msg)
+      Sproutvideo::Analytics.download_counts.class.should == Sproutvideo::Response
+    end
+
+    it 'should GET the correct url for individual video method call and return a response' do
+      RestClient.should_receive(:get).with(
+        "#{@url}/abc123",
+        {'SproutVideo-Api-Key' => @api_key, :params => {}}).and_return(@msg)
+      Sproutvideo::Analytics.download_counts(:video_id => 'abc123').class.should == Sproutvideo::Response
+    end
+
+    it 'should GET the correct url if dates are passed in' do
+      RestClient.should_receive(:get).with(
+        @url,
+        {'SproutVideo-Api-Key' => @api_key, :params => {:start_date => '2012-12-31', :end_date => '2013-12-31'}}).and_return(@msg)
+      Sproutvideo::Analytics.download_counts(:start_date => '2012-12-31', :end_date => '2013-12-31').class.should == Sproutvideo::Response
+    end
+  end
+
   describe "#domains" do
     before(:each) do
       @url = "#{Sproutvideo.base_url}/stats/domains"
@@ -268,6 +295,15 @@ describe Sproutvideo::Analytics do
         "#{Sproutvideo.base_url}/stats/popular_videos",
         {'SproutVideo-Api-Key' => @api_key, :params => {}}).and_return(@msg)
       Sproutvideo::Analytics.popular_videos.class.should == Sproutvideo::Response
+    end
+  end
+
+  describe "#popular_downloads" do
+    it "should GET the correct url for overall method call and return a response" do
+      RestClient.should_receive(:get).with(
+        "#{Sproutvideo.base_url}/stats/popular_downloads",
+        {'SproutVideo-Api-Key' => @api_key, :params => {}}).and_return(@msg)
+      Sproutvideo::Analytics.popular_downloads.class.should == Sproutvideo::Response
     end
   end
 
