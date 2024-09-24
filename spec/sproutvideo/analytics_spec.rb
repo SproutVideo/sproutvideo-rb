@@ -158,31 +158,6 @@ describe Sproutvideo::Analytics do
     end
   end
 
-  describe "#playback_types" do
-    before(:each) do
-      @url = "#{Sproutvideo.base_url}/stats/playback_types"
-    end
-
-    it "should GET the correct url for overall method call and return a response" do
-      RestClient.should_receive(:get).with(
-        @url,
-        {'SproutVideo-Api-Key' => @api_key, :params => {}}).and_return(@msg)
-      Sproutvideo::Analytics.playback_types.class.should == Sproutvideo::Response
-    end
-    it "should GET the correct url for individual video method call and return a response" do
-      RestClient.should_receive(:get).with(
-        "#{@url}/abc123",
-        {'SproutVideo-Api-Key' => @api_key, :params => {}}).and_return(@msg)
-      Sproutvideo::Analytics.playback_types(:video_id => 'abc123').class.should == Sproutvideo::Response
-    end
-    it "should GET the correct url if dates are passed in" do
-      RestClient.should_receive(:get).with(
-        @url,
-        {'SproutVideo-Api-Key' => @api_key, :params => {:start_date => '2012-12-31', :end_date => '2013-12-31'}}).and_return(@msg)
-      Sproutvideo::Analytics.playback_types(:start_date => '2012-12-31', :end_date => '2013-12-31').class.should == Sproutvideo::Response
-    end
-  end
-
   describe "#device_types" do
     before(:each) do
       @url = "#{Sproutvideo.base_url}/stats/device_types"

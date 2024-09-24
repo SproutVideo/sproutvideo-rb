@@ -429,7 +429,6 @@ Sproutvideo::Analytics.download_counts
 Sproutvideo::Analytics.domains
 Sproutvideo::Analytics.geo
 Sproutvideo::Analytics.video_types
-Sproutvideo::Analytics.playback_types
 Sproutvideo::Analytics.device_types
 ```
 Each method can also take an options hash containing a :video_id for retrieving overall data for a specific video:
@@ -439,7 +438,6 @@ Sproutvideo::Analytics.download_counts(:video_id => 'abc123')
 Sproutvideo::Analytics.domains(:video_id => 'abc123')
 Sproutvideo::Analytics.geo(:video_id => 'abc123')
 Sproutvideo::Analytics.video_types(:video_id => 'abc123')
-Sproutvideo::Analytics.playback_types(:video_id => 'abc123')
 Sproutvideo::Analytics.device_types(:video_id => 'abc123')
 ```
 The following methods can also take an options hash containing a :live_stream_id for retrieving overall data for a specific live_stream:

@@ -25,11 +25,6 @@ module Sproutvideo
       get(url, options)
     end
 
-    def self.playback_types(options={})
-      url = build_path("/stats/playback_types", options)
-      get(url, options)
-    end
-
     def self.device_types(options={})
       url = build_path("/stats/device_types", options)
       get(url, options)
